@@ -1,4 +1,13 @@
 import json
+
+class usuario:
+    user=""
+    password=""
+
+    def __init__(self,user,pwd):
+        self.user=user
+        self.password=pwd
+
 class data_helper:
     def __init__(self,user,password):
         self.user=user
