@@ -8,11 +8,6 @@ class usuario:
         self.user=user
         self.password=pwd
 
-class data_helper:
-    def __init__(self,user,password):
-        self.user=user
-        self.password=password
-
     def toDict(self):
         ret={}
         for attr in dir(self):
@@ -20,10 +15,15 @@ class data_helper:
                 val=getattr(self,attr)
                 if not callable(val):
                     ret[attr]=val
+        return ret
 
     def fromDict(self,source):
         for key in source.keys():
             setattr(self,key,source[key])
+
+class data_helper:
+    def __init__(self):
+        pass
 
     def serialize(self,obj,name):
         with open(name,"w") as f:
