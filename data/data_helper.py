@@ -1,9 +1,6 @@
 import json
 
-class usuario:
-    user=""
-    password=""
-
+class Usuario:
     def __init__(self,user,pwd):
         self.user=user
         self.password=pwd
