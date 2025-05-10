@@ -12,14 +12,27 @@ class userLogic:
         dh=data_helper()
         dh.serialize(us.toDict(),"usuario.json")
 
-    def passwordValidate(self,pwd,vpwd):
+    def validations(self,user,pwd,vpwd):
         if pwd != vpwd:
             raise ValueError("Las contrasenias no coinciden")
         
-    #TO DO: validar que el usuario no exista
+        dh=data_helper()
+        usuarios=dh.deserialize("usuario.json")
+        print(usuarios)
+        print(usuarios.keys())
+        if usuarios['user']==user:
+            raise ValueError("El usuario ya existe")
+
+    #TO DO: usar bcrypt para guardar la pass
+    #TO DO: permitir registrar mas de un usuario? crear una lista de objetos
+    #TO DO: modificar funcion login, luego del pendiente de arriba
 
     def login(self):
         us=Usuario(self.user,self.pwd)
         dh=data_helper()
-        us.fromDict(dh.deserialize("usuario.json"))
-        us.prueba()
+        usuarios=dh.deserialize("usuario.json")
+        
+        #us.prueba()
+
+    def loginValidate(self):
+        pass
