@@ -18,6 +18,9 @@ class Usuario:
         for key in source.keys():
             setattr(self,key,source[key])
 
+    def prueba(self):
+        print("El user es ",self.user)
+
 class data_helper:
     def __init__(self):
         pass
@@ -30,3 +33,4 @@ class data_helper:
         with open(name,"r") as f:
             txt=f.read()
             return json.loads(txt)
+        

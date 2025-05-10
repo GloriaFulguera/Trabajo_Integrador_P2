@@ -1,10 +1,14 @@
 from business.user_logic import userLogic
 from getpass import getpass
 class dataCollector:
-    def __init__(self):
-        self.user=input("Usuario: ")
-        self.password=getpass("Contraseña: ")
-        self.vPassword=getpass("Reingrese la contraseña: ")
+    def __init__(self,reg):#registro? registration :login
+        if reg:
+            self.user=input("Usuario: ")
+            self.password=getpass("Contraseña: ")
+            self.vPassword=getpass("Reingrese la contraseña: ")
+        else:
+            self.user=input("Usuario: ")
+            self.password=getpass("Contraseña: ")
 
     def registration(self):
         logica=userLogic(self.user,self.password,self.vPassword)
@@ -13,4 +17,8 @@ class dataCollector:
             logica.register()
         except ValueError as e:
             print("ERROR: ",e)
+
+    def login(self):
+        logica=userLogic(self.user,self.password)
+        print(logica.login())
     

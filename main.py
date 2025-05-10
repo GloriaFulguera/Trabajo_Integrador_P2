@@ -1,5 +1,6 @@
 from presentation.dataCollector import dataCollector
 
-dc=dataCollector()
-dc.registration()
+dc=dataCollector(False)
+#dc.registration()
+dc.login()
 
