@@ -6,7 +6,10 @@ class userLogic:
         self.user=user
         self.pwd=pwd
         
-    def registrar(self):
+    def register(self):
         us=Usuario(self.user,self.pwd)
         dh=data_helper()
         dh.serialize(us.toDict(),"usuario.json")
+
+    def passwordValidate(self):
+        pass
