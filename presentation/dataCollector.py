@@ -4,7 +4,7 @@ class dataCollector:
         self.user=input("Usuario: ")
         self.password=input("Contraseña: ")
 
-    def registrar(self):
+    def registro(self):
         logica=userLogic(self.user,self.password)
         logica.registrar()
     

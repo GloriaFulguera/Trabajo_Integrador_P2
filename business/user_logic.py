@@ -1,12 +1,12 @@
-from data.data_helper import data_helper,usuario
+from data.data_helper import data_helper,Usuario
 
 class userLogic:
 
-    def __init__(self,user,password):
+    def __init__(self,user,pwd):
         self.user=user
-        self.password=password
+        self.pwd=pwd
         
     def registrar(self):
-        us=usuario(self.user,self.password)
+        us=Usuario(self.user,self.pwd)
         dh=data_helper()
         dh.serialize(us.toDict(),"usuario.json")

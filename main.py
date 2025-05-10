@@ -1,5 +1,5 @@
-from presentation.menu import dataCollector
-#from data.data_helper import Usuario
+from presentation.dataCollector import dataCollector
+
 dc=dataCollector()
-dc.registrar()
+dc.registro()
 
