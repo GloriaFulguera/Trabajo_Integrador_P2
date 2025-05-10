@@ -1,9 +1,10 @@
 from business.user_logic import userLogic
+from getpass import getpass
 class dataCollector:
     def __init__(self):
         self.user=input("Usuario: ")
-        self.password=input("Contraseña: ")
-        self.vPassword=input("Reingrese la contraseña: ")
+        self.password=getpass("Contraseña: ")
+        self.vPassword=getpass("Reingrese la contraseña: ")
 
     def registration(self):
         logica=userLogic(self.user,self.password,self.vPassword)
