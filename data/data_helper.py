@@ -6,20 +6,12 @@ class Usuario:
         self.password=pwd
 
     def toDict(self):
-        ret={}
-        for attr in dir(self):
-            if not attr.startswith("__") and not attr.endswith("__"):
-                val=getattr(self,attr)
-                if not callable(val):
-                    ret[attr]=val
-        return ret
+        return {self.user:self.password}
 
     def fromDict(self,source):
         for key in source.keys():
             setattr(self,key,source[key])
 
-    def prueba(self):
-        print("El user es ",self.user)
 
 class data_helper:
     def __init__(self):

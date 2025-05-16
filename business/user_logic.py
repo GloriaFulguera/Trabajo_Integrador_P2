@@ -20,12 +20,11 @@ class userLogic:
         usuarios=dh.deserialize("usuario.json")
         print(usuarios)
         print(usuarios.keys())
-        if usuarios['user']==user:
+        if user in usuarios:
             raise ValueError("El usuario ya existe")
 
     #TO DO: usar bcrypt para guardar la pass
     #TO DO: permitir registrar mas de un usuario? crear una lista de objetos
-    #TO DO: re-configurar lista, para identificar el username como key?
     #TO DO: modificar funcion login, luego del pendiente de arriba
 
     def login(self):
