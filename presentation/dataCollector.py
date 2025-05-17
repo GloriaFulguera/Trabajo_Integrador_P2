@@ -1,5 +1,6 @@
 from business.user_logic import userLogic
 from getpass import getpass
+
 class dataCollector:
     def __init__(self,reg):#registro? registration :login
         if reg:
@@ -15,6 +16,7 @@ class dataCollector:
         try:
             logica.validations(self.user,self.password,self.vPassword)
             logica.register()
+            print("\nRegistro exitoso")
         except ValueError as e:
             print("ERROR: ",e)
 
@@ -22,7 +24,7 @@ class dataCollector:
         logica=userLogic(self.user,self.password)
         try:
             logica.loginValidate()
-            print("Bienvenido de vuelta ",self.user)
+            print("\nBienvenido de vuelta ",self.user)
         except ValueError as e:
             print("ERROR: ",e)
     

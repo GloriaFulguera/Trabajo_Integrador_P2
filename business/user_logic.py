@@ -27,15 +27,16 @@ class userLogic:
             dh.serialize({},"usuarios.json")
 
         usuarios=dh.deserialize("usuarios.json")
-        print(usuarios)
-        print(usuarios.keys())
         if user in usuarios:
             raise ValueError("El usuario ya existe")
 
     def loginValidate(self):
         dh=data_helper()
+        if not exists("usuarios.json"):
+            dh.serialize({},"usuarios.json")
+        
         usuarios=dh.deserialize("usuarios.json")
-
+        
         if not self.user in usuarios:
             raise ValueError("Usuario o contrasenia invalida")
         
