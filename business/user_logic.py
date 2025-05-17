@@ -1,4 +1,4 @@
-from data.data_helper import data_helper,Usuario
+from data.data_helper import data_helper
 from os.path import exists
 import bcrypt
 
@@ -10,7 +10,6 @@ class userLogic:
         self.vpwd=vpwd
         
     def register(self):
-        us=Usuario(self.user,self.pwd)
         dh=data_helper()
 
         data=dh.deserialize("usuarios.json")

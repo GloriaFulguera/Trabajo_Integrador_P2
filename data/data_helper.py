@@ -1,18 +1,5 @@
 import json
 
-class Usuario:
-    def __init__(self,user,pwd):
-        self.user=user
-        self.password=pwd
-
-    def toDict(self):
-        return {self.user:self.password}
-
-    def fromDict(self,source):
-        for key in source.keys():
-            setattr(self,key,source[key])
-
-
 class data_helper:
     def __init__(self):
         pass
