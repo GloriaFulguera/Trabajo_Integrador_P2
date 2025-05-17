@@ -1,4 +1,5 @@
 from data.data_helper import data_helper,Usuario
+from os.path import exists
 
 class userLogic:
 
@@ -10,14 +11,21 @@ class userLogic:
     def register(self):
         us=Usuario(self.user,self.pwd)
         dh=data_helper()
-        dh.serialize(us.toDict(),"usuario.json")
+
+        data=dh.deserialize("usuarios.json")
+        data[self.user]=self.pwd
+
+        dh.serialize(data,"usuarios.json")
 
     def validations(self,user,pwd,vpwd):
         if pwd != vpwd:
             raise ValueError("Las contrasenias no coinciden")
         
         dh=data_helper()
-        usuarios=dh.deserialize("usuario.json")
+        if not exists("usuarios.json"):
+            dh.serialize({},"usuarios.json")
+
+        usuarios=dh.deserialize("usuarios.json")
         print(usuarios)
         print(usuarios.keys())
         if user in usuarios:
@@ -30,7 +38,7 @@ class userLogic:
     def login(self):
         us=Usuario(self.user,self.pwd)
         dh=data_helper()
-        usuarios=dh.deserialize("usuario.json")
+        usuarios=dh.deserialize("usuarios.json")
         
         #us.prueba()
 
