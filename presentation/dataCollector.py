@@ -20,5 +20,9 @@ class dataCollector:
 
     def login(self):
         logica=userLogic(self.user,self.password)
-        logica.login()
+        try:
+            logica.loginValidate()
+            print("Bienvenido de vuelta ",self.user)
+        except ValueError as e:
+            print("ERROR: ",e)
     

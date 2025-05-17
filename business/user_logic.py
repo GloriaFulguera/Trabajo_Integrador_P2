@@ -14,7 +14,7 @@ class userLogic:
         dh=data_helper()
 
         data=dh.deserialize("usuarios.json")
-        data[self.user]=self.pwd
+        data[self.user] = bcrypt.hashpw(self.pwd.encode(), bcrypt.gensalt()).decode()
 
         dh.serialize(data,"usuarios.json")
 
@@ -32,15 +32,12 @@ class userLogic:
         if user in usuarios:
             raise ValueError("El usuario ya existe")
 
-    #TO DO: usar bcrypt para guardar la pass
-    #TO DO: modificar funcion login, luego del pendiente de arriba
-
-    def login(self):
-        us=Usuario(self.user,self.pwd)
+    def loginValidate(self):
         dh=data_helper()
         usuarios=dh.deserialize("usuarios.json")
-        
-        #us.prueba()
 
-    def loginValidate(self):
-        pass
+        if not self.user in usuarios:
+            raise ValueError("Usuario o contrasenia invalida")
+        
+        if not bcrypt.checkpw(self.pwd.encode(),usuarios[self.user].encode()):
+            raise ValueError("Usuario o contrasenia invalida")
