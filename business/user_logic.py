@@ -1,5 +1,6 @@
 from data.data_helper import data_helper,Usuario
 from os.path import exists
+import bcrypt
 
 class userLogic:
 
@@ -32,7 +33,6 @@ class userLogic:
             raise ValueError("El usuario ya existe")
 
     #TO DO: usar bcrypt para guardar la pass
-    #TO DO: permitir registrar mas de un usuario? crear una lista de objetos
     #TO DO: modificar funcion login, luego del pendiente de arriba
 
     def login(self):
