@@ -12,29 +12,29 @@ class userLogic:
     def register(self):
         dh=data_helper()
 
-        data=dh.deserialize("usuarios.json")
+        data=dh.deserialize("data/usuarios.json")
         data[self.user] = bcrypt.hashpw(self.pwd.encode(), bcrypt.gensalt()).decode()
 
-        dh.serialize(data,"usuarios.json")
+        dh.serialize(data,"data/usuarios.json")
 
     def validations(self,user,pwd,vpwd):
         if pwd != vpwd:
             raise ValueError("Las contrasenias no coinciden")
         
         dh=data_helper()
-        if not exists("usuarios.json"):
-            dh.serialize({},"usuarios.json")
+        if not exists("data/usuarios.json"):
+            dh.serialize({},"data/usuarios.json")
 
-        usuarios=dh.deserialize("usuarios.json")
+        usuarios=dh.deserialize("data/usuarios.json")
         if user in usuarios:
             raise ValueError("El usuario ya existe")
 
     def loginValidate(self):
         dh=data_helper()
-        if not exists("usuarios.json"):
-            dh.serialize({},"usuarios.json")
+        if not exists("data/usuarios.json"):
+            dh.serialize({},"data/usuarios.json")
         
-        usuarios=dh.deserialize("usuarios.json")
+        usuarios=dh.deserialize("data/usuarios.json")
         
         if not self.user in usuarios:
             raise ValueError("Usuario o contrasenia invalida")
