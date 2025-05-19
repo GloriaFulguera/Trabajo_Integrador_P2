@@ -4,7 +4,7 @@ class Menu:
     def __init__(self):
         pass
 
-    def mostrarMenu(self):
+    def showMenu(self):
         while True:
             print("-----------------------------------------------")
             print("1. Registrarse\n2. Iniciar Sesión\n0. Salir")
