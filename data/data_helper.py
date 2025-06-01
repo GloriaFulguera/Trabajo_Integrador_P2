@@ -1,4 +1,5 @@
 import json
+from os.path import exists
 
 class data_helper:
     def __init__(self):
@@ -9,7 +10,10 @@ class data_helper:
             f.write(json.dumps(obj,indent=4))
 
     def deserialize(self,name):
+        if not exists(name):
+            self.serialize({},name)
+            
         with open(name,"r") as f:
             txt=f.read()
             return json.loads(txt)
-        
+           

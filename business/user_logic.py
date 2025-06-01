@@ -1,6 +1,6 @@
 from data.data_helper import data_helper
-from os.path import exists
-import bcrypt
+from data.data_repository import UserRepository
+
 
 class userLogic:
 
@@ -10,26 +10,25 @@ class userLogic:
         self.vpwd=vpwd
         
     def register(self):
-        dh=data_helper()
-
-        data=dh.deserialize("data/usuarios.json")
-        data[self.user] = bcrypt.hashpw(self.pwd.encode(), bcrypt.gensalt()).decode()
-
-        dh.serialize(data,"data/usuarios.json")
+        ur=UserRepository()
+        self.validations(self.user,self.pwd,self.vpwd)
+        ur.create_user(self.user,self.pwd)
 
     def validations(self,user,pwd,vpwd):
+        ur=UserRepository()
         if user == "" or pwd == "":
             raise ValueError("Ningun campo puede estar vacio")
+        
+        if len(user)<4:
+            raise ValueError("Nombre de usuario demasiado corto")
+        
+        if len(pwd)<4:
+            raise ValueError("Contrasenia demasiado corta")
         
         if pwd != vpwd:
             raise ValueError("Las contrasenias no coinciden")
         
-        dh=data_helper()
-        if not exists("data/usuarios.json"):
-            dh.serialize({},"data/usuarios.json")
-
-        usuarios=dh.deserialize("data/usuarios.json")
-        if user in usuarios:
+        if ur.user_exists(user):
             raise ValueError("El usuario ya existe")
 
     def loginValidate(self):
