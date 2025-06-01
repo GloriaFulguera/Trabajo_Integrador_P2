@@ -1,5 +1,4 @@
 from data.data_helper import data_helper
-
 import bcrypt
 
 class UserRepository:
@@ -19,4 +18,6 @@ class UserRepository:
         else:
             return False
 
-    
+    def user_valid(self,user,pwd):
+        usuarios=self.dh.deserialize(self.archivo)
+        return bcrypt.checkpw(pwd.encode(),usuarios[user].encode())

@@ -1,7 +1,6 @@
 from data.data_helper import data_helper
 from data.data_repository import UserRepository
 
-
 class userLogic:
 
     def __init__(self,user,pwd,vpwd=None):
@@ -11,10 +10,13 @@ class userLogic:
         
     def register(self):
         ur=UserRepository()
-        self.validations(self.user,self.pwd,self.vpwd)
+        self.registerValidate(self.user,self.pwd,self.vpwd)
         ur.create_user(self.user,self.pwd)
 
-    def validations(self,user,pwd,vpwd):
+    def login(self):
+        self.loginValidate()
+
+    def registerValidate(self,user,pwd,vpwd):
         ur=UserRepository()
         if user == "" or pwd == "":
             raise ValueError("Ningun campo puede estar vacio")
@@ -32,14 +34,9 @@ class userLogic:
             raise ValueError("El usuario ya existe")
 
     def loginValidate(self):
-        dh=data_helper()
-        if not exists("data/usuarios.json"):
-            dh.serialize({},"data/usuarios.json")
-        
-        usuarios=dh.deserialize("data/usuarios.json")
-        
-        if not self.user in usuarios:
+        ur=UserRepository()
+        if not ur.user_exists(self.user):
             raise ValueError("Usuario o contrasenia invalida")
         
-        if not bcrypt.checkpw(self.pwd.encode(),usuarios[self.user].encode()):
+        if not ur.user_valid(self.user,self.pwd):
             raise ValueError("Usuario o contrasenia invalida")
