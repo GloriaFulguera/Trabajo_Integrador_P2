@@ -18,6 +18,9 @@ class userLogic:
         dh.serialize(data,"data/usuarios.json")
 
     def validations(self,user,pwd,vpwd):
+        if user == "" or pwd == "":
+            raise ValueError("Ningun campo puede estar vacio")
+        
         if pwd != vpwd:
             raise ValueError("Las contrasenias no coinciden")
         
