@@ -14,7 +14,6 @@ class dataCollector:
     def registration(self):
         logica=userLogic(self.user,self.password,self.vPassword)
         try:
-            logica.validations(self.user,self.password,self.vPassword)
             logica.register()
             print("\nRegistro exitoso")
         except ValueError as e:
@@ -23,7 +22,7 @@ class dataCollector:
     def login(self):
         logica=userLogic(self.user,self.password)
         try:
-            logica.loginValidate()
+            logica.login()
             print("\nBienvenido de vuelta ",self.user)
         except ValueError as e:
             print("ERROR: ",e)
