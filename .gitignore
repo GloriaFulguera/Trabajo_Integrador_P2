@@ -1,0 +1,27 @@
+# Carpetas de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+.env/
+
+# Archivos de configuración y logs
+*.log
+*.pot
+*.pyc
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Configuración de editores
+.vscode/
+.idea/
+
+# Archivos de pruebas
+coverage.xml
+*.cover
