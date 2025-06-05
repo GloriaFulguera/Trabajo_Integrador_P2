@@ -1,4 +1,5 @@
 from business.user_logic import userLogic
+from business.transaction_logic import transactionLogic
 from getpass import getpass
 
 class dataCollector:
@@ -21,9 +22,11 @@ class dataCollector:
 
     def login(self):
         logica=userLogic(self.user,self.password)
+        lg=transactionLogic(self.user)
         try:
             logica.login()
             print("\nBienvenido de vuelta ",self.user)
+                        
         except ValueError as e:
             print("ERROR: ",e)
     
