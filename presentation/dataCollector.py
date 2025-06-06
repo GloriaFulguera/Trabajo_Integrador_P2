@@ -25,6 +25,7 @@ class dataCollector:
         lg=transactionLogic(self.user)
         try:
             logica.login()
+            lg.create_account("USD")
             print("\nBienvenido de vuelta ",self.user)
                         
         except ValueError as e:
