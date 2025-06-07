@@ -1,6 +1,5 @@
-from data.data_helper import data_helper
 from data.data_repository import UserRepository
-from re import match
+from business.control_user import CheckEmpty,CheckUsername,CheckStrongPassword,CheckPassword,CheckUserExist,CheckUser,CheckUserRegistry
 
 class userLogic:
 
@@ -15,34 +14,21 @@ class userLogic:
         ur.create_user(self.user,self.pwd)
 
     def login(self):
-        self.loginValidate()
+        self.loginValidate(self.user,self.pwd)
 
     def registerValidate(self,user,pwd,vpwd):
-        regex=r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
-        ur=UserRepository()
-        if user == "" or pwd == "":
-            raise ValueError("Ningun campo puede estar vacio")
-        
-        if len(user)<4:
-            raise ValueError("Nombre de usuario demasiado corto")
-        
-        if len(pwd)<4:
-            raise ValueError("Contrasenia demasiado corta")
-        
-        # if not match(regex,pwd):
-        #     raise ValueError("La contrasenia debe incluir\n-Al menos 8 caracteres\n-Una minuscula\n-Una mayuscula\n-Un numero\n-un caracter especial")
-        
-        if pwd != vpwd:
-            raise ValueError("Las contrasenias no coinciden")
-        
-        if ur.user_exists(user):
-            raise ValueError("El usuario ya existe")
+        controls=CheckEmpty(user,pwd)
+        controls.setNext(CheckUsername(user))\
+        .setNext(CheckStrongPassword(pwd))\
+        .setNext(CheckPassword(pwd,vpwd))\
+        .setNext(CheckUserExist(user))
 
-    def loginValidate(self):
-        ur=UserRepository()
-        if not ur.user_exists(self.user):
-            raise ValueError("Usuario o contrasenia invalida")
-        
-        if not ur.user_valid(self.user,self.pwd):
-            raise ValueError("Usuario o contrasenia invalida")
+        controls.handle(user)
+
+    def loginValidate(self,user,pwd):
+        controls=CheckUser(user)
+        controls.setNext(CheckUserRegistry(user,pwd))
+
+        controls.handle(user)
+
         
