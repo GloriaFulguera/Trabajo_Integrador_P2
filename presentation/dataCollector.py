@@ -1,11 +1,10 @@
 from business.user_logic import userLogic
-from business.transaction_logic import transactionLogic
 from getpass import getpass
 
 class dataCollector:
     def __init__(self,reg):#registro? registration :login
         if reg:
-            self.user=input("Usuario: ")
+            self.user=input("Usuario: ").strip()
             self.password=getpass("Contraseña: ")
             self.vPassword=getpass("Reingrese la contraseña: ")
         else:
@@ -22,12 +21,12 @@ class dataCollector:
 
     def login(self):
         logica=userLogic(self.user,self.password)
-        lg=transactionLogic(self.user)
         try:
             logica.login()
-            lg.create_account("USD")
             print("\nBienvenido de vuelta ",self.user)
+            return True
                         
         except ValueError as e:
             print("ERROR: ",e)
+            return False
     

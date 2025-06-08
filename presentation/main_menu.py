@@ -1,4 +1,5 @@
 from presentation.dataCollector import dataCollector
+from presentation.secondary_menu import menuWallet
 
 class Menu:
     def __init__(self):
@@ -16,7 +17,9 @@ class Menu:
                     dc.registration()
                 case "2":
                     dc=dataCollector(False)
-                    dc.login()
+                    if dc.login():
+                        m=menuWallet(dc.user)
+                        m.showMenu()
                 case "0":
                     print("\nFIN")
                     break
