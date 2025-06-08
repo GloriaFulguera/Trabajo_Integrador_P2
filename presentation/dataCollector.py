@@ -4,7 +4,7 @@ from getpass import getpass
 class dataCollector:
     def __init__(self,reg):#registro? registration :login
         if reg:
-            self.user=input("Usuario: ")
+            self.user=input("Usuario: ").strip()
             self.password=getpass("Contraseña: ")
             self.vPassword=getpass("Reingrese la contraseña: ")
         else:
@@ -24,6 +24,9 @@ class dataCollector:
         try:
             logica.login()
             print("\nBienvenido de vuelta ",self.user)
+            return True
+                        
         except ValueError as e:
             print("ERROR: ",e)
+            return False
     
