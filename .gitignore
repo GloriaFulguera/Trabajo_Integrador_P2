@@ -13,6 +13,7 @@ env/
 *.log
 *.pot
 *.pyc
+.env
 
 # Archivos de sistema
 .DS_Store

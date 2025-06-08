@@ -15,11 +15,15 @@ class menuWallet:
                     value=input("Ingrese moneda: ")
                     self.wc.create_account(value.strip().upper())
                 case "2":
-                    break
+                    valueCur=input("Ingrese la moneda que desea comprar: ")
+                    value=input("Ingrese monto que desea comprar: ")
+                    self.wc.purchase_currency(valueCur.strip().upper(),value)
+
                 case "3":
                     break
                 case "4":
-                    break
+                    value=input("Ingrese monto a depositar: ")
+                    self.wc.deposit_amount(value.strip())
                 case "0":
                     print("\nFIN")
                     break
