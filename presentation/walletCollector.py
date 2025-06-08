@@ -7,7 +7,7 @@ class walletCollector():
 
     def create_account(self,curr):
         try:
-            self.tl.create_account(curr)
+            self.tl.createAccount(curr)
         except ValueError as e:
             print("ERROR: ",e)
 
@@ -15,6 +15,15 @@ class walletCollector():
         try:
             amount=Decimal(amt)
             self.tl.depositAmount(amount,"ARS")
+        except InvalidOperation:
+            print("ERROR: El valor ingresado no es valido")
+        except ValueError as e:
+            print("ERROR: ",e)
+
+    def purchase_currency(self,curr,amt):
+        try:
+            amount=Decimal(amt)
+            self.tl.exchangeCurrency("ARS",curr,amount)
         except InvalidOperation:
             print("ERROR: El valor ingresado no es valido")
         except ValueError as e:
