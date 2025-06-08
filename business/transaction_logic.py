@@ -17,7 +17,7 @@ class transactionLogic:
             raise ValueError("No se puede operar con el monto ingresado")
         self.repo.credit_account(amt,acc)
 
-    def exchangeCurrency(self,org,dst,amt):
+    def exchangeCurrency(self,org,dst,amt,modo):
         if not self.repo.account_exists(org):
             raise ValueError("Cuenta origen invalida")
         if not self.repo.account_exists(dst):
@@ -27,11 +27,25 @@ class transactionLogic:
         lts=self.repo.get_rates()
         if lts is None:
             raise ValueError("Ocurrio un error al consultar API")
-        total=self.getTotal(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
-        if total > self.repo.get_balance(org):
-            raise ValueError("Saldo insuficiente para realizar la operacion")
-        self.repo.complete_exchange(org,dst,amt,total)
         
-    def getTotal(self,rateOrg,rateDst,amt):
+        if modo=="compra":
+            total=self.getTotalPurchase(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
+            if self.repo.get_balance(org)<total:
+                raise ValueError("Saldo insuficiente para realizar la operacion")
+            
+            self.repo.complete_exchange(org,dst,amt,total)
+
+        if modo=="venta":
+            total=self.getTotalSell(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
+            if self.repo.get_balance(org)<amt:
+                raise ValueError("Saldo insuficiente para realizar la operacion")
+
+            self.repo.complete_exchange(org,dst,total,amt)
+        
+    def getTotalPurchase(self,rateOrg,rateDst,amt):
+        total=(rateOrg/rateDst)*amt      
+        return total
+    
+    def getTotalSell(self,rateOrg,rateDst,amt):
         total=(rateDst/rateOrg)*amt      
         return total

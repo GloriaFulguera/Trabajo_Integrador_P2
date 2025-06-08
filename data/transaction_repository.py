@@ -65,10 +65,10 @@ class transactionRepository:
     def get_rate(self,curr,rates):
         return Decimal(rates[curr])
 
-    def complete_exchange(self,org,dst,amt,tot):
+    def complete_exchange(self,org,dst,deposit,withdraw):
         accounts=self.dh.deserialize(self.userFile)
-        discount=Decimal(accounts[org])-Decimal(tot)
-        credit=Decimal(accounts[dst])+Decimal(amt)
+        discount=Decimal(accounts[org])-Decimal(withdraw)
+        credit=Decimal(accounts[dst])+Decimal(deposit)
         accounts[org]=str(discount)
         accounts[dst]=str(credit)
 

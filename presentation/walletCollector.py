@@ -23,7 +23,16 @@ class walletCollector():
     def purchase_currency(self,curr,amt):
         try:
             amount=Decimal(amt)
-            self.tl.exchangeCurrency("ARS",curr,amount)
+            self.tl.exchangeCurrency("ARS",curr,amount,"compra")
+        except InvalidOperation:
+            print("ERROR: El valor ingresado no es valido")
+        except ValueError as e:
+            print("ERROR: ",e)
+
+    def sell_currency(self,curr,amt):
+        try:
+            amount=Decimal(amt)
+            self.tl.exchangeCurrency(curr,"ARS",amount,"venta")
         except InvalidOperation:
             print("ERROR: El valor ingresado no es valido")
         except ValueError as e:
