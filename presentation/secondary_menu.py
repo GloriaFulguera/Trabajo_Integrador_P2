@@ -19,7 +19,8 @@ class menuWallet:
                 case "3":
                     break
                 case "4":
-                    break
+                    value=input("Ingrese monto a depositar: ")
+                    self.wc.deposit_amount(value.strip())
                 case "0":
                     print("\nFIN")
                     break
