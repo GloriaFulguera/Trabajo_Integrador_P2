@@ -1,4 +1,6 @@
 from data.transaction_repository import transactionRepository
+from business.control_transaction import CheckCurrency,CheckAccountExists,CheckAccount,CheckAmount,CheckApiResponse,CheckBalance
+import time
 
 class transactionLogic:
     def __init__(self,user):
@@ -6,42 +8,57 @@ class transactionLogic:
         self.repo=transactionRepository(user)
 
     def createAccount(self,curr):
-        if not self.repo.rate_exists(curr):
-            raise ValueError("Codigo de divisa invalido")
-        if self.repo.account_exists(curr):
-            raise ValueError("La cuenta ya existe")
+        controls=CheckCurrency(curr,self.user)
+        controls.setNext(CheckAccountExists(curr,self.user))
+        controls.handle(curr)
+
         self.repo.create_account(curr)
 
     def depositAmount(self,amt,acc):
-        if amt<=0:
-            raise ValueError("No se puede operar con el monto ingresado")
+        control=CheckAmount(amt)
+        control.handle(amt)
+
         self.repo.credit_account(amt,acc)
 
     def exchangeCurrency(self,org,dst,amt,modo):
-        if not self.repo.account_exists(org):
-            raise ValueError("Cuenta origen invalida")
-        if not self.repo.account_exists(dst):
-            raise ValueError("Cuenta destino invalida")
-        if amt<=0:
-            raise ValueError("No se puede operar con el monto ingresado")
         lts=self.repo.get_rates()
-        if lts is None:
-            raise ValueError("Ocurrio un error al consultar API")
-        
+
+        controls=CheckAccount(org,self.user)
+        controls.setNext(CheckAccount(dst,self.user))\
+        .setNext(CheckAmount(amt))\
+        .setNext(CheckApiResponse(lts))
+        controls.handle(org)
+
         if modo=="compra":
             total=self.getTotalPurchase(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
-            if self.repo.get_balance(org)<total:
-                raise ValueError("Saldo insuficiente para realizar la operacion")
-            
-            self.repo.complete_exchange(org,dst,amt,total)
+            opControl=CheckBalance(total,self.repo.get_balance(org))
+            opControl.handle(total)
+
+            tinicio=time.time()
+            rta=input("\n¿Esta seguro que desea avanzar con la operación? (S/N)\n")
+            if (time.time()-tinicio)>120:
+                rta="N"
+            if rta in("S","s"):
+                self.repo.complete_exchange(org,dst,amt,total)
+                print("Operación realizada con éxito")
+            else:
+                print("Operación cancelada")
 
         if modo=="venta":
             total=self.getTotalSell(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
-            if self.repo.get_balance(org)<amt:
-                raise ValueError("Saldo insuficiente para realizar la operacion")
+            opControl=CheckBalance(amt,self.repo.get_balance(org))
+            opControl.handle(amt)
 
-            self.repo.complete_exchange(org,dst,total,amt)
-        
+            tinicio=time.time()
+            rta=input("\n¿Esta seguro que desea avanzar con la operación? (S/N)\n")
+            if (time.time()-tinicio)>120:
+                rta="N"
+            if rta in("S","s"):
+                self.repo.complete_exchange(org,dst,total,amt)
+                print("Operación realizada con éxito")
+            else:
+                print("Operación cancelada")
+            
     def getTotalPurchase(self,rateOrg,rateDst,amt):
         total=(rateOrg/rateDst)*amt      
         return total
