@@ -35,14 +35,15 @@ class transactionLogic:
             opControl.handle(total)
 
             tinicio=time.time()
-            rta=input("\n¿Esta seguro que desea avanzar con la operación? (S/N)\n")
+            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
             if (time.time()-tinicio)>120:
                 rta="N"
             if rta in("S","s"):
                 self.repo.complete_exchange(org,dst,amt,total)
-                print("Operación realizada con éxito")
+                print("\033[92mOperación realizada con éxito\033[0m")
+
             else:
-                print("Operación cancelada")
+                print("\033[91mOperación cancelada\033[0m")
 
         if modo=="venta":
             total=self.getTotalSell(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
@@ -50,14 +51,15 @@ class transactionLogic:
             opControl.handle(amt)
 
             tinicio=time.time()
-            rta=input("\n¿Esta seguro que desea avanzar con la operación? (S/N)\n")
+            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
             if (time.time()-tinicio)>120:
                 rta="N"
             if rta in("S","s"):
                 self.repo.complete_exchange(org,dst,total,amt)
-                print("Operación realizada con éxito")
+                print("\033[92mOperación realizada con éxito\033[0m")
+
             else:
-                print("Operación cancelada")
+                print("\033[91mOperación cancelada\033[0m")
             
     def getTotalPurchase(self,rateOrg,rateDst,amt):
         total=(rateOrg/rateDst)*amt      

@@ -29,4 +29,4 @@ class menuWallet:
                     print("\nFIN")
                     break
                 case _:
-                    print("\nIngreso no valido")
+                    print("\033[91m\nIngreso inválido\033[0m")
