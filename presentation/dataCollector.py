@@ -1,5 +1,6 @@
 from business.user_logic import userLogic
 from getpass import getpass
+from os import system,name
 
 class dataCollector:
     def __init__(self,reg):#registro? registration :login
@@ -15,18 +16,20 @@ class dataCollector:
         logica=userLogic(self.user,self.password,self.vPassword)
         try:
             logica.register()
-            print("\nRegistro exitoso")
+            system('cls' if name == 'nt' else 'clear')
+            print("\033[92m\nRegistro exitoso\033[0m")
         except ValueError as e:
-            print("ERROR: ",e)
+            print("\033[91mERROR: {}\033[0m".format(e))
 
     def login(self):
         logica=userLogic(self.user,self.password)
         try:
             logica.login()
-            print("\nBienvenido de vuelta ",self.user)
+            system('cls' if name == 'nt' else 'clear')
+            print("\nBienvenido/a ",self.user)
             return True
                         
         except ValueError as e:
-            print("ERROR: ",e)
+            print("\033[91mERROR: {}\033[0m".format(e))
             return False
     

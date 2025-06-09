@@ -16,11 +16,12 @@ class menuWallet:
                     self.wc.create_account(value.strip().upper())
                 case "2":
                     valueCur=input("Ingrese la moneda que desea comprar: ")
-                    value=input("Ingrese monto que desea comprar: ")
+                    value=input("Ingrese la cantidad que desea comprar: ")
                     self.wc.purchase_currency(valueCur.strip().upper(),value)
-
                 case "3":
-                    break
+                    valueCur=input("Ingrese la moneda que desea vender: ")
+                    value=input("Ingrese la cantidad que desea vender: ")
+                    self.wc.sell_currency(valueCur.strip().upper(),value)
                 case "4":
                     value=input("Ingrese monto a depositar: ")
                     self.wc.deposit_amount(value.strip())
@@ -28,4 +29,4 @@ class menuWallet:
                     print("\nFIN")
                     break
                 case _:
-                    print("\nIngreso no valido")
+                    print("\033[91m\nIngreso inválido\033[0m")

@@ -20,16 +20,13 @@ class transactionRepository:
         load_dotenv()
 
     def get_rates(self):
-        print("Gaste una req")
         rates=None
-        rates=self.dh.deserialize(self.ratesFile)
-        # response=get("https://api.currencyfreaks.com/v2.0/rates/latest?apikey={}".format(getenv("API_KEY")))
-        # if response.status_code==200:
-        #     data=response.json()
-        #     rates=data["rates"]
-        #     if not exists(self.ratesFile):
-        #         print("GENERO EL JSON DE RATES")
-        #         self.dh.serialize(rates,self.ratesFile)
+        response=get("https://api.currencyfreaks.com/v2.0/rates/latest?apikey={}".format(getenv("API_KEY")))
+        if response.status_code==200:
+            data=response.json()
+            rates=data["rates"]
+            if not exists(self.ratesFile):
+                self.dh.serialize(rates,self.ratesFile)
 
         return rates
 
@@ -46,6 +43,8 @@ class transactionRepository:
             return False
         
     def rate_exists(self,rate):
+        if not exists(self.ratesFile):
+            self.get_rates()
         rates=self.dh.deserialize(self.ratesFile)
         if rate in rates:
             return True
@@ -65,10 +64,10 @@ class transactionRepository:
     def get_rate(self,curr,rates):
         return Decimal(rates[curr])
 
-    def complete_exchange(self,org,dst,amt,tot):
+    def complete_exchange(self,org,dst,deposit,withdraw):
         accounts=self.dh.deserialize(self.userFile)
-        discount=Decimal(accounts[org])-Decimal(tot)
-        credit=Decimal(accounts[dst])+Decimal(amt)
+        discount=Decimal(accounts[org])-Decimal(withdraw)
+        credit=Decimal(accounts[dst])+Decimal(deposit)
         accounts[org]=str(discount)
         accounts[dst]=str(credit)
 
