@@ -29,10 +29,11 @@ class CheckStrongPassword(BaseHandler):
         self.pwd=pwd
 
     def handle(self, pwd):
-        if len(self.pwd)>4:
+        regex=r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
+        if match(regex,pwd):
             return super().handle(pwd)
         else:
-            raise ValueError("Contrasenia demasiado corta")
+            raise ValueError("La contrasenia debe incluir\n-Al menos 8 caracteres\n-Una minuscula\n-Una mayuscula\n-Un numero\n-un caracter especial")
         
 class CheckPassword(BaseHandler):
     def __init__(self,pwd,pwd2):
