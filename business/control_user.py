@@ -30,7 +30,7 @@ class CheckStrongPassword(BaseHandler):
 
     def handle(self, pwd):
         regex=r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"
-        if match(regex,pwd):
+        if match(regex,self.pwd):
             return super().handle(pwd)
         else:
             raise ValueError("La contrasenia debe incluir\n-Al menos 8 caracteres\n-Una minuscula\n-Una mayuscula\n-Un numero\n-un caracter especial")
