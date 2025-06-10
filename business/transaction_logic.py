@@ -1,6 +1,5 @@
 from data.transaction_repository import transactionRepository
-from business.control_transaction import CheckCurrency,CheckAccountExists,CheckAccount,CheckAmount,CheckApiResponse,CheckBalance
-import time
+from business.control_transaction import CheckCurrency,CheckAccountExists,CheckAccount,CheckAccounts,CheckAmount,CheckApiResponse,CheckBalance
 
 class transactionLogic:
     def __init__(self,user):
@@ -20,51 +19,34 @@ class transactionLogic:
 
         self.repo.credit_account(amt,acc)
 
-    def exchangeCurrency(self,org,dst,amt,modo):
+    def validateExchange(self,org,dst,amt,modo):
         lts=self.repo.get_rates()
 
         controls=CheckAccount(org,self.user)
         controls.setNext(CheckAccount(dst,self.user))\
+        .setNext(CheckAccounts(org,dst))\
         .setNext(CheckAmount(amt))\
         .setNext(CheckApiResponse(lts))
         controls.handle(org)
 
         if modo=="compra":
-            total=self.getTotalPurchase(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
+            total=self.getTotalPurchase(org,dst,amt,lts)
             opControl=CheckBalance(total,self.repo.get_balance(org))
             opControl.handle(total)
 
-            tinicio=time.time()
-            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
-            if (time.time()-tinicio)>120:
-                rta="N"
-            if rta in("S","s"):
-                self.repo.complete_exchange(org,dst,amt,total)
-                print("\033[92mOperación realizada con éxito\033[0m")
-
-            else:
-                print("\033[91mOperación cancelada\033[0m")
-
         if modo=="venta":
-            total=self.getTotalSell(self.repo.get_rate(org,lts),self.repo.get_rate(dst,lts),amt)
+            total=self.getTotalSell(org,dst,amt,lts)
             opControl=CheckBalance(amt,self.repo.get_balance(org))
             opControl.handle(amt)
-
-            tinicio=time.time()
-            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
-            if (time.time()-tinicio)>120:
-                rta="N"
-            if rta in("S","s"):
-                self.repo.complete_exchange(org,dst,total,amt)
-                print("\033[92mOperación realizada con éxito\033[0m")
-
-            else:
-                print("\033[91mOperación cancelada\033[0m")
+        return lts
             
-    def getTotalPurchase(self,rateOrg,rateDst,amt):
-        total=(rateOrg/rateDst)*amt      
+    def completeExchange(self,org,dst,deposit,withdraw):
+        self.repo.complete_exchange(org,dst,deposit,withdraw)
+    
+    def getTotalPurchase(self,rateOrg,rateDst,amt,lts):
+        total=(self.repo.get_rate(rateOrg,lts)/self.repo.get_rate(rateDst,lts))*amt      
         return total
     
-    def getTotalSell(self,rateOrg,rateDst,amt):
-        total=(rateDst/rateOrg)*amt      
+    def getTotalSell(self,rateOrg,rateDst,amt,lts):
+        total=(self.repo.get_rate(rateDst,lts)/self.repo.get_rate(rateOrg,lts))*amt      
         return total

@@ -34,6 +34,17 @@ class CheckAccount(BaseHandler):
         else:
             raise ValueError("Cuenta inválida")
         
+class CheckAccounts(BaseHandler):
+    def __init__(self,org,dst):
+        self.org=org
+        self.dst=dst
+
+    def handle(self, org):
+        if self.org != self.dst:
+            return super().handle(org)
+        else:
+            raise ValueError("No puede operar con la misma moneda")
+        
 class CheckAmount(BaseHandler):
     def __init__(self,amt):
         self.amt=amt

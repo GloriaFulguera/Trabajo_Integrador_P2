@@ -1,6 +1,7 @@
 from business.transaction_logic import transactionLogic
 from decimal import Decimal,InvalidOperation
 from os import system,name
+import time
 
 class walletCollector():
     def __init__(self,user):
@@ -28,7 +29,18 @@ class walletCollector():
     def purchase_currency(self,curr,amt):
         try:
             amount=Decimal(amt)
-            self.tl.exchangeCurrency("ARS",curr,amount,"compra")
+            ltsRates=self.tl.validateExchange("ARS",curr,amount,"compra")
+
+            tinicio=time.time()
+            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
+            if (time.time()-tinicio)>10:
+                rta="N"
+            if rta in("S","s"):
+                self.tl.completeExchange("ARS",curr,amount,self.tl.getTotalPurchase("ARS",curr,amount,ltsRates))
+                print("\033[92mOperación realizada con éxito\033[0m")
+            else:
+                print("\033[91mOperación cancelada\033[0m")
+
         except InvalidOperation:
             print("\033[91mERROR: El valor ingresado es inválido\033[0m")
         except ValueError as e:
@@ -37,7 +49,18 @@ class walletCollector():
     def sell_currency(self,curr,amt):
         try:
             amount=Decimal(amt)
-            self.tl.exchangeCurrency(curr,"ARS",amount,"venta")
+            ltsRates=self.tl.validateExchange(curr,"ARS",amount,"venta")
+
+            tinicio=time.time()
+            rta = input("\033[93m\n¿Está seguro de que desea continuar con la operación? (S/N)\n\033[0m")
+            if (time.time()-tinicio)>10:
+                rta="N"
+            if rta in("S","s"):
+                self.tl.completeExchange(curr,"ARS",self.tl.getTotalSell(curr,"ARS",amount,ltsRates),amount)
+                print("\033[92mOperación realizada con éxito\033[0m")
+            else:
+                print("\033[91mOperación cancelada\033[0m")
+
         except InvalidOperation:
             print("\033[91mERROR: El valor ingresado es inválido\033[0m")
         except ValueError as e:
