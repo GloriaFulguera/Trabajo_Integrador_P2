@@ -8,6 +8,7 @@ __connection__=SO.connectionForURI(database)
 class Usuarios(SO.SQLObject):
     usuario=SO.StringCol(length=100, varchar=True)
     clave=SO.StringCol(length=200,varchar=True)
+    cuentas=SO.MultipleJoin('Cuentas', joinColumn='id_usuario')
 
 class UserRepository:
     #def __init__(self):
