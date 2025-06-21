@@ -74,14 +74,15 @@ class transactionRepository:
         # else:
         #     return False
         
-    def rate_exists(self,rate):
+    def rate_exists(self,p_rate):
+
         if not exists(self.ratesFile):
             self.get_rates()
-        rates=self.dh.deserialize(self.ratesFile)
-        if rate in rates:
-            return True
-        else:
-            return False
+        # rates=self.dh.deserialize(self.ratesFile)
+        # if rate in rates:
+        #     return True
+        # else:
+        #     return False
         
     def credit_account(self,amt,acc):
         accounts=self.dh.deserialize(self.userFile)
