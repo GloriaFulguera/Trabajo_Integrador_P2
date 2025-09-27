@@ -310,6 +310,9 @@ QPushButton#btnRegisterR:hover {
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+        <property name="echoMode">
+         <enum>QLineEdit::PasswordEchoOnEdit</enum>
+        </property>
        </widget>
       </item>
       <item row="3" column="0">
@@ -406,6 +409,9 @@ QPushButton#btnRegisterR:hover {
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+        <property name="echoMode">
+         <enum>QLineEdit::PasswordEchoOnEdit</enum>
+        </property>
        </widget>
       </item>
       <item row="2" column="0">
@@ -482,6 +488,9 @@ QPushButton#btnRegisterR:hover {
         </property>
         <property name="styleSheet">
          <string notr="true"/>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::PasswordEchoOnEdit</enum>
         </property>
        </widget>
       </item>

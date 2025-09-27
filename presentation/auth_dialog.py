@@ -14,12 +14,22 @@ class AuthDialog(QDialog,Ui_AuthWindow):
 
     def showLogin(self):
         self.stackAuth.setCurrentIndex(0)
+        self.cleanInputs()
 
     def showRegister(self):
         self.stackAuth.setCurrentIndex(1)
+        self.cleanInputs()
 
     def login(self):
-        self.accept()
+        try:
+            self.validateEmpty(self.txtUsuario.text())
+            self.validateEmpty(self.txtPassword.text())
+            logica=userLogic(self.txtUsuario.text(),self.txtPassword.text())
+            logica.login()
+            self.accept()
+
+        except ValueError as error:
+            QMessageBox.warning(self,"Advertencia",str(error))
 
     def registration(self):
         try:
@@ -28,6 +38,8 @@ class AuthDialog(QDialog,Ui_AuthWindow):
             self.validateEmpty(self.txtPwdValidate.text())
             logica=userLogic(self.txtUserRegister.text(),self.txtPwdRegister.text(),self.txtPwdValidate.text())
             logica.register()
+            QMessageBox.information(self,"Info","Usuario registrado correctamente")
+            self.cleanInputs()
 
         except ValueError as error:
             QMessageBox.warning(self,"Advertencia",str(error))
@@ -35,3 +47,10 @@ class AuthDialog(QDialog,Ui_AuthWindow):
     def validateEmpty(self,value):
         if str(value).strip() == "":
             raise ValueError("Debe completar todos los campos.")
+        
+    def cleanInputs(self):
+        self.txtUsuario.clear()
+        self.txtPassword.clear()
+        self.txtUserRegister.clear()
+        self.txtPwdRegister.clear()
+        self.txtPwdValidate.clear()
