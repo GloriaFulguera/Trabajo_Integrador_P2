@@ -7,6 +7,8 @@ class AuthDialog(QDialog,Ui_AuthWindow):
         super().__init__()
         self.setupUi(self)
         self.stackAuth.setCurrentIndex(0)
+        self.user=""
+        self.cleanInputs()
         self.btnRegister.clicked.connect(self.showRegister)
         self.btnLoginR.clicked.connect(self.showLogin)
         self.btnLogin.clicked.connect(self.login)
@@ -26,6 +28,7 @@ class AuthDialog(QDialog,Ui_AuthWindow):
             self.validateEmpty(self.txtPassword.text())
             logica=userLogic(self.txtUsuario.text(),self.txtPassword.text())
             logica.login()
+            self.user=self.txtUsuario.text()
             self.accept()
 
         except ValueError as error:

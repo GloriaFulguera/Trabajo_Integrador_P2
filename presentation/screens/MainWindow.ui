@@ -25,6 +25,187 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/* ===== Fondo general ===== */
+QMainWindow#MainWindow,
+QWidget#centralwidget {
+  background: qlineargradient(x1:0,y1:0,x2:1,y2:1, stop:0 #0b1210, stop:1 #0f1c17);
+  color: #E8EEF7;
+  font-family: &quot;Segoe UI&quot;,&quot;Inter&quot;,Arial;
+}
+
+QStackedWidget#stackMain {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+/* ===== Título superior (bienvenida) ===== */
+QLabel#lblWelcomeUser {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN (todas las páginas)
+   ======================================================= */
+QLabel#lblTituloCrearCuentas_3,
+QLabel#lblTituloComprarMoneda,
+QLabel#lblTituloVenderMoneda,
+QLabel#lblTituloDepositarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* =========================================================
+   LABELS DE CAMPO (todas las páginas)
+   ======================================================= */
+QLabel#lblMoneda_3,
+QLabel#lblCantidadCompra,
+QLabel#lblMonedaCompra,
+QLabel#lblMonedaVender,
+QLabel#lblCantidadVender,
+QLabel#lblCantidadDeposito {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* =========================================================
+   BOTONES PRINCIPALES &quot;VERDES&quot;
+   (se agrupan y se mantiene override para btnCerrar:disabled)
+   ======================================================= */
+QPushButton#btnCerrar,
+QPushButton#btnCreateAccount_3,
+QPushButton#btnPurchase,
+QPushButton#btnSell,
+QPushButton#btnDeposit {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnCerrar:hover,
+QPushButton#btnCreateAccount_3:hover,
+QPushButton#btnPurchase:hover,
+QPushButton#btnSell:hover,
+QPushButton#btnDeposit:hover   { background: #17b455; }
+
+QPushButton#btnCerrar:pressed,
+QPushButton#btnCreateAccount_3:pressed,
+QPushButton#btnPurchase:pressed,
+QPushButton#btnSell:pressed,
+QPushButton#btnDeposit:pressed { background: #12803e; }
+
+/* disabled general para los verdes (paginas); luego override para btnCerrar */
+QPushButton#btnCreateAccount_3:disabled,
+QPushButton#btnPurchase:disabled,
+QPushButton#btnSell:disabled,
+QPushButton#btnDeposit:disabled {
+  background: #e5f7ed;
+  color: #065f46;
+  border-color: #bfead3;
+}
+/* override: btnCerrar conserva su disabled original diferente */
+QPushButton#btnCerrar:disabled {
+  background: #a7f3d0;
+  color: #065f46;
+  border-color: #86efac;
+}
+
+/* =========================================================
+   BOTONES SECUNDARIOS (menú)
+   ======================================================= */
+QPushButton#btnCreateAccountM,
+QPushButton#btnDepositM,
+QPushButton#btnPurchaseM,
+QPushButton#btnSellM {
+  background: #ffffff;
+  color: #0b3d2e;
+  border: 1px solid #94a3b8;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnCreateAccountM:hover,
+QPushButton#btnDepositM:hover,
+QPushButton#btnPurchaseM:hover,
+QPushButton#btnSellM:hover {
+  background: #16a34a;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* =========================================================
+   COMBOBOX (todas las páginas)
+   ======================================================= */
+QComboBox#cmbCurrency_3,
+QComboBox#cmbPurchaseCurrency,
+QComboBox#cmbSellCurrency {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  /* espacio para flecha */
+  min-height: 34px;
+}
+QComboBox#cmbCurrency_3:focus,
+QComboBox#cmbPurchaseCurrency:focus,
+QComboBox#cmbSellCurrency:focus {
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QComboBox#cmbCurrency_3::drop-down,
+QComboBox#cmbPurchaseCurrency::drop-down,
+QComboBox#cmbSellCurrency::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrency_3 QAbstractItemView,
+QComboBox#cmbPurchaseCurrency QAbstractItemView,
+QComboBox#cmbSellCurrency QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* =========================================================
+   LINE EDITS (todas las páginas)
+   ======================================================= */
+QLineEdit#txtPurchaseAmount,
+QLineEdit#txtSellAmount,
+QLineEdit#txtAmount {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtPurchaseAmount:focus,
+QLineEdit#txtSellAmount:focus,
+QLineEdit#txtAmount:focus {
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtPurchaseAmount::placeholder,
+QLineEdit#txtSellAmount::placeholder,
+QLineEdit#txtAmount::placeholder,
+QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QStackedWidget" name="stackMain">
     <property name="geometry">
@@ -50,8 +231,961 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="page"/>
-    <widget class="QWidget" name="page_2"/>
+    <widget class="QWidget" name="page">
+     <widget class="QFrame" name="frame">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>691</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,1,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0" columnminimumwidth="0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lblMoneda_3">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ingrese la moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloCrearCuentas_3">
+         <property name="text">
+          <string>Crear cuenta nueva</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="2">
+        <spacer name="verticalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="btnCreateAccount_3">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Crear cuenta</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QComboBox" name="cmbCurrency_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>ARS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>USD</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QFrame" name="ComprarMonedaFrame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>691</width>
+         <height>400</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>700</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,1,1,0,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0,0" columnminimumwidth="0,0,0">
+        <property name="leftMargin">
+         <number>30</number>
+        </property>
+        <property name="topMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>30</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <item row="6" column="1">
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="btnPurchase">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Comprar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <spacer name="verticalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="cmbPurchaseCurrency">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>40</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>ARS</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>USD</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="lblMonedaCompra">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Ingrese la moneda</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <spacer name="verticalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblTituloComprarMoneda">
+          <property name="text">
+           <string>Comprar moneda</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="lblCantidadCompra">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Cantidad</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLineEdit" name="txtPurchaseAmount"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QFrame" name="ComprarMonedaFrame_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,1,1,0,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0,0" columnminimumwidth="0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="6" column="1">
+        <spacer name="verticalSpacer_13">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="2">
+        <widget class="QPushButton" name="btnSell">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Vender</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_14">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="2">
+        <widget class="QComboBox" name="cmbSellCurrency">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>ARS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>USD</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lblMonedaVender">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ingrese la moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <spacer name="verticalSpacer_15">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloVenderMoneda">
+         <property name="text">
+          <string>Vender moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="lblCantidadVender">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="txtSellAmount"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <widget class="QFrame" name="ComprarMonedaFrame_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lblCantidadDeposito">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <spacer name="verticalSpacer_16">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="3">
+        <widget class="QPushButton" name="btnDeposit">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Vender</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloDepositarMoneda">
+         <property name="text">
+          <string>Depositar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="txtAmount"/>
+       </item>
+       <item row="3" column="3">
+        <spacer name="verticalSpacer_17">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <spacer name="verticalSpacer_18">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>150</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnCerrar">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>20</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Cerrar Sesión</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCreateAccountM">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Crear cuenta</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPurchaseM">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Comprar moneda</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSellM">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Vender moneda</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDepositM">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Depositar ARS</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblWelcomeUser">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>254</width>
+      <height>47</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

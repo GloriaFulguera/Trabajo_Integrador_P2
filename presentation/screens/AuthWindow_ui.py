@@ -19,78 +19,11 @@ class Ui_AuthWindow(object):
 "QDialog#AuthWindow {\n"
 "  background: qlineargradient(x1:0,y1:0,x2:1,y2:1, stop:0 #0b1210, stop:1 #0f1c17);\n"
 "  color: #E8EEF7;\n"
-"  font-family: \"Segoe UI\", \"Inter\", Arial;\n"
+"  font-family: \"Segoe UI\",\"Inter\",Arial;\n"
 "}\n"
 "\n"
-"/* ===== Tarjeta ===== */\n"
-"QFrame#cardLogin {\n"
-"  background: #ffffff;\n"
-"  border: 1px solid #d1d5db;\n"
-"  border-radius: 14px;\n"
-"  padding: 24px;\n"
-"  max-width: 420px;\n"
-"}\n"
-"\n"
-"/* ===== Título ===== */\n"
-"QLabel#lblTitleLogin {\n"
-"  color: #0b3d2e;\n"
-"  font-size: 30px;\n"
-"  font-weight: 800;\n"
-"  letter-spacing: .5px;\n"
-"  border: none;\n"
-"}\n"
-"\n"
-"/* ===== Labels ===== */\n"
-"QLabel#lblUser, QLabel#lblPwd {\n"
-"  color: #334155;\n"
-"  font-weight: 600;\n"
-"}\n"
-"\n"
-"/* ===== Campos ===== */\n"
-"QLineEdit#txtUsuario, QLineEdit#txtPassword {\n"
-"  background: #f8fafc;\n"
-"  color: #111827;\n"
-"  border: 1px solid #cbd5e1;\n"
-"  border-radius: 10px;\n"
-"  padding: 10px 12px;\n"
-"}\n"
-"QLineEdit#txtUsuario:focus, QLineEdit#txtPassword:focus {\n"
-"  border: 2px solid #22c55e;\n"
-"  background: #ffffff;\n"
-"}\n"
-"QLineEdit#txtUsuario::placeholder, QLineEdit#txtPassword::placeholder {\n"
-"  color: #94a3b8;\n"
-"}\n"
-"\n"
-"/* ===== Botón principal (Login) ===== */\n"
-"QPushButton#btnLogin {\n"
-"  background: #16a34a;\n"
-"  color: #ffffff;\n"
-"  border: 1px solid #15803d;\n"
-"  border-radius: 10px;\n"
-"  padding: 10px 16px;\n"
-"  font-weight: 600;\n"
-"}\n"
-"QPushButton#btnLogin:hover   { background: #17b455; }\n"
-"QPushButton#btnLogin:pressed { background: #12803e; }\n"
-"QPushButton#btnLogin:disabled{\n"
-"  background: #a7f3d0; color: #065f46; border-color: #86efac;\n"
-"}\n"
-"\n"
-"/* ===== Botón secundario (Registro) ===== */\n"
-"QPushButton#btnRegister {\n"
-"  background: transparent;\n"
-"  color: #0b3d2e;\n"
-"  border: 1px solid #94a3b8;\n"
-"  border-radius: 10px;\n"
-"  padding: 10px 16px;\n"
-"  font-weight: 600;\n"
-"}\n"
-"QPushButton#btnRegister:hover {\n"
-"  border-color: #16a34a;\n"
-"  color: #065f46;\n"
-"}\n"
-"/* ===== Tarjeta ===== */\n"
+"/* ===== Tarjetas (Login y Registro) ===== */\n"
+"QFrame#cardLogin,\n"
 "QFrame#cardRegister {\n"
 "  background: #ffffff;\n"
 "  border: 1px solid #d1d5db;\n"
@@ -99,7 +32,8 @@ class Ui_AuthWindow(object):
 "  max-width: 420px;\n"
 "}\n"
 "\n"
-"/* ===== Título ===== */\n"
+"/* ===== Títulos (Login y Registro) ===== */\n"
+"QLabel#lblTitleLogin,\n"
 "QLabel#lblTitleRegister {\n"
 "  color: #0b3d2e;\n"
 "  font-size: 30px;\n"
@@ -108,29 +42,46 @@ class Ui_AuthWindow(object):
 "  border: none;\n"
 "}\n"
 "\n"
-"/* ===== Labels ===== */\n"
-"QLabel#lblPwd1, QLabel#lblPwd2, QLabel#lblUserR {\n"
+"/* ===== Labels de campo ===== */\n"
+"QLabel#lblUser,\n"
+"QLabel#lblPwd,\n"
+"QLabel#lblPwd1,\n"
+"QLabel#lblPwd2,\n"
+"QLabel#lblUserR {\n"
 "  color: #334155;\n"
 "  font-weight: 600;\n"
 "}\n"
 "\n"
-"/* ===== Campos ===== */\n"
-"QLineEdit#txtUserRegister, QLineEdit#txtPwdRegister, QLineEdit#txtPwdValidate {\n"
+"/* ===== Campos (todos) ===== */\n"
+"QLineEdit#txtUsuario,\n"
+"QLineEdit#txtPassword,\n"
+"QLineEdit#txtUserRegister,\n"
+"QLineEdit#txtPwdRegister,\n"
+"QLineEdit#txtPwdValidate {\n"
 "  background: #f8fafc;\n"
 "  color: #111827;\n"
 "  border: 1px solid #cbd5e1;\n"
 "  border-radius: 10px;\n"
 "  padding: 10px 12px;\n"
 "}\n"
-"QLineEdit#txtUserRegister:focus, QLineEdit#txtPwdRegister:focus, QLineEdit#txtPwdValidate:focus {\n"
+"QLineEdit#txtUsuario:focus,\n"
+"QLineEdit#txtPassword:focus,\n"
+"QLineEdit#txtUserRegister:focus,\n"
+"QLineEdit#txtPwdRegister:focus,\n"
+"QLineEdit#txtPwdValidate:focus {\n"
 "  border: 2px solid #22c55e;\n"
 "  background: #ffffff;\n"
 "}\n"
-"QLineEdit#txtUserRegister::placeholder, QLineEdit#txtPwdRegister::placeholder,QLineEdit#txtPwdValidate::placeholder {\n"
+"QLineEdit#txtUsuario::placeholder,\n"
+"QLineEdit#txtPassword::placeholder,\n"
+"QLineEdit#txtUserRegister::placeholder,\n"
+"QLineEdit#txtPwdRegister::placeholder,\n"
+"QLineEdit#txtPwdValidate::placeholder {\n"
 "  color: #94a3b8;\n"
 "}\n"
 "\n"
-"/* ===== Botón principal (Register) ===== */\n"
+"/* ===== Botones principales (acciones verdes) ===== */\n"
+"QPushButton#btnLogin,\n"
 "QPushButton#btnRegisterR {\n"
 "  background: #16a34a;\n"
 "  color: #ffffff;\n"
@@ -139,13 +90,17 @@ class Ui_AuthWindow(object):
 "  padding: 10px 16px;\n"
 "  font-weight: 600;\n"
 "}\n"
-"QPushButton#btnLoginR:hover   { background: #17b455; }\n"
-"QPushButton#btnLoginR:pressed { background: #12803e; }\n"
-"QPushButton#btnLoginR:disabled{\n"
+"QPushButton#btnLogin:hover,\n"
+"QPushButton#btnRegisterR:hover { background: #17b455; }\n"
+"QPushButton#btnLogin:pressed,\n"
+"QPushButton#btnRegisterR:pressed { background: #12803e; }\n"
+"QPushButton#btnLogin:disabled,\n"
+"QPushButton#btnRegisterR:disabled {\n"
 "  background: #a7f3d0; color: #065f46; border-color: #86efac;\n"
 "}\n"
 "\n"
-"/* ===== Botón secundario (Login) ===== */\n"
+"/* ===== Botones secundarios (cambiar vista Login/Registro) ===== */\n"
+"QPushButton#btnRegister,\n"
 "QPushButton#btnLoginR {\n"
 "  background: transparent;\n"
 "  color: #0b3d2e;\n"
@@ -154,11 +109,11 @@ class Ui_AuthWindow(object):
 "  padding: 10px 16px;\n"
 "  font-weight: 600;\n"
 "}\n"
-"QPushButton#btnRegisterR:hover {\n"
+"QPushButton#btnRegister:hover,\n"
+"QPushButton#btnLoginR:hover {\n"
 "  border-color: #16a34a;\n"
 "  color: #065f46;\n"
 "}\n"
-"\n"
 "")
         self.stackAuth = QtWidgets.QStackedWidget(parent=AuthWindow)
         self.stackAuth.setGeometry(QtCore.QRect(219, 100, 361, 400))
@@ -205,14 +160,17 @@ class Ui_AuthWindow(object):
         self.txtPassword = QtWidgets.QLineEdit(parent=self.cardLogin)
         self.txtPassword.setMinimumSize(QtCore.QSize(0, 30))
         self.txtPassword.setStyleSheet("")
-        self.txtPassword.setEchoMode(QtWidgets.QLineEdit.EchoMode.PasswordEchoOnEdit)
+        self.txtPassword.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.txtPassword.setObjectName("txtPassword")
         self.gridLayout.addWidget(self.txtPassword, 2, 1, 1, 1)
         self.btnRegister = QtWidgets.QPushButton(parent=self.cardLogin)
+        self.btnRegister.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btnRegister.setObjectName("btnRegister")
         self.gridLayout.addWidget(self.btnRegister, 3, 0, 1, 1)
         self.btnLogin = QtWidgets.QPushButton(parent=self.cardLogin)
+        self.btnLogin.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btnLogin.setStyleSheet("")
+        self.btnLogin.setDefault(True)
         self.btnLogin.setObjectName("btnLogin")
         self.gridLayout.addWidget(self.btnLogin, 3, 1, 1, 1)
         self.gridLayout.setColumnStretch(0, 1)
@@ -234,13 +192,15 @@ class Ui_AuthWindow(object):
         self.gridLayout_2.setSpacing(12)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.btnRegisterR = QtWidgets.QPushButton(parent=self.cardRegister)
+        self.btnRegisterR.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btnRegisterR.setStyleSheet("")
+        self.btnRegisterR.setDefault(True)
         self.btnRegisterR.setObjectName("btnRegisterR")
         self.gridLayout_2.addWidget(self.btnRegisterR, 4, 1, 1, 1)
         self.txtPwdRegister = QtWidgets.QLineEdit(parent=self.cardRegister)
         self.txtPwdRegister.setMinimumSize(QtCore.QSize(0, 30))
         self.txtPwdRegister.setStyleSheet("")
-        self.txtPwdRegister.setEchoMode(QtWidgets.QLineEdit.EchoMode.PasswordEchoOnEdit)
+        self.txtPwdRegister.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.txtPwdRegister.setObjectName("txtPwdRegister")
         self.gridLayout_2.addWidget(self.txtPwdRegister, 2, 1, 1, 1)
         self.lblPwd1 = QtWidgets.QLabel(parent=self.cardRegister)
@@ -253,6 +213,7 @@ class Ui_AuthWindow(object):
         self.txtUserRegister.setObjectName("txtUserRegister")
         self.gridLayout_2.addWidget(self.txtUserRegister, 1, 1, 1, 1)
         self.btnLoginR = QtWidgets.QPushButton(parent=self.cardRegister)
+        self.btnLoginR.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btnLoginR.setObjectName("btnLoginR")
         self.gridLayout_2.addWidget(self.btnLoginR, 4, 0, 1, 1)
         self.lblUserR = QtWidgets.QLabel(parent=self.cardRegister)
@@ -274,7 +235,7 @@ class Ui_AuthWindow(object):
         self.txtPwdValidate = QtWidgets.QLineEdit(parent=self.cardRegister)
         self.txtPwdValidate.setMinimumSize(QtCore.QSize(0, 30))
         self.txtPwdValidate.setStyleSheet("")
-        self.txtPwdValidate.setEchoMode(QtWidgets.QLineEdit.EchoMode.PasswordEchoOnEdit)
+        self.txtPwdValidate.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.txtPwdValidate.setObjectName("txtPwdValidate")
         self.gridLayout_2.addWidget(self.txtPwdValidate, 3, 1, 1, 1)
         self.gridLayout_2.setColumnStretch(0, 2)

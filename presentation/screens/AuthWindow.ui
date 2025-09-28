@@ -30,78 +30,11 @@
 QDialog#AuthWindow {
   background: qlineargradient(x1:0,y1:0,x2:1,y2:1, stop:0 #0b1210, stop:1 #0f1c17);
   color: #E8EEF7;
-  font-family: &quot;Segoe UI&quot;, &quot;Inter&quot;, Arial;
+  font-family: &quot;Segoe UI&quot;,&quot;Inter&quot;,Arial;
 }
 
-/* ===== Tarjeta ===== */
-QFrame#cardLogin {
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  border-radius: 14px;
-  padding: 24px;
-  max-width: 420px;
-}
-
-/* ===== Título ===== */
-QLabel#lblTitleLogin {
-  color: #0b3d2e;
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: .5px;
-  border: none;
-}
-
-/* ===== Labels ===== */
-QLabel#lblUser, QLabel#lblPwd {
-  color: #334155;
-  font-weight: 600;
-}
-
-/* ===== Campos ===== */
-QLineEdit#txtUsuario, QLineEdit#txtPassword {
-  background: #f8fafc;
-  color: #111827;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-QLineEdit#txtUsuario:focus, QLineEdit#txtPassword:focus {
-  border: 2px solid #22c55e;
-  background: #ffffff;
-}
-QLineEdit#txtUsuario::placeholder, QLineEdit#txtPassword::placeholder {
-  color: #94a3b8;
-}
-
-/* ===== Botón principal (Login) ===== */
-QPushButton#btnLogin {
-  background: #16a34a;
-  color: #ffffff;
-  border: 1px solid #15803d;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-weight: 600;
-}
-QPushButton#btnLogin:hover   { background: #17b455; }
-QPushButton#btnLogin:pressed { background: #12803e; }
-QPushButton#btnLogin:disabled{
-  background: #a7f3d0; color: #065f46; border-color: #86efac;
-}
-
-/* ===== Botón secundario (Registro) ===== */
-QPushButton#btnRegister {
-  background: transparent;
-  color: #0b3d2e;
-  border: 1px solid #94a3b8;
-  border-radius: 10px;
-  padding: 10px 16px;
-  font-weight: 600;
-}
-QPushButton#btnRegister:hover {
-  border-color: #16a34a;
-  color: #065f46;
-}
-/* ===== Tarjeta ===== */
+/* ===== Tarjetas (Login y Registro) ===== */
+QFrame#cardLogin,
 QFrame#cardRegister {
   background: #ffffff;
   border: 1px solid #d1d5db;
@@ -110,7 +43,8 @@ QFrame#cardRegister {
   max-width: 420px;
 }
 
-/* ===== Título ===== */
+/* ===== Títulos (Login y Registro) ===== */
+QLabel#lblTitleLogin,
 QLabel#lblTitleRegister {
   color: #0b3d2e;
   font-size: 30px;
@@ -119,29 +53,46 @@ QLabel#lblTitleRegister {
   border: none;
 }
 
-/* ===== Labels ===== */
-QLabel#lblPwd1, QLabel#lblPwd2, QLabel#lblUserR {
+/* ===== Labels de campo ===== */
+QLabel#lblUser,
+QLabel#lblPwd,
+QLabel#lblPwd1,
+QLabel#lblPwd2,
+QLabel#lblUserR {
   color: #334155;
   font-weight: 600;
 }
 
-/* ===== Campos ===== */
-QLineEdit#txtUserRegister, QLineEdit#txtPwdRegister, QLineEdit#txtPwdValidate {
+/* ===== Campos (todos) ===== */
+QLineEdit#txtUsuario,
+QLineEdit#txtPassword,
+QLineEdit#txtUserRegister,
+QLineEdit#txtPwdRegister,
+QLineEdit#txtPwdValidate {
   background: #f8fafc;
   color: #111827;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   padding: 10px 12px;
 }
-QLineEdit#txtUserRegister:focus, QLineEdit#txtPwdRegister:focus, QLineEdit#txtPwdValidate:focus {
+QLineEdit#txtUsuario:focus,
+QLineEdit#txtPassword:focus,
+QLineEdit#txtUserRegister:focus,
+QLineEdit#txtPwdRegister:focus,
+QLineEdit#txtPwdValidate:focus {
   border: 2px solid #22c55e;
   background: #ffffff;
 }
-QLineEdit#txtUserRegister::placeholder, QLineEdit#txtPwdRegister::placeholder,QLineEdit#txtPwdValidate::placeholder {
+QLineEdit#txtUsuario::placeholder,
+QLineEdit#txtPassword::placeholder,
+QLineEdit#txtUserRegister::placeholder,
+QLineEdit#txtPwdRegister::placeholder,
+QLineEdit#txtPwdValidate::placeholder {
   color: #94a3b8;
 }
 
-/* ===== Botón principal (Register) ===== */
+/* ===== Botones principales (acciones verdes) ===== */
+QPushButton#btnLogin,
 QPushButton#btnRegisterR {
   background: #16a34a;
   color: #ffffff;
@@ -150,13 +101,17 @@ QPushButton#btnRegisterR {
   padding: 10px 16px;
   font-weight: 600;
 }
-QPushButton#btnLoginR:hover   { background: #17b455; }
-QPushButton#btnLoginR:pressed { background: #12803e; }
-QPushButton#btnLoginR:disabled{
+QPushButton#btnLogin:hover,
+QPushButton#btnRegisterR:hover { background: #17b455; }
+QPushButton#btnLogin:pressed,
+QPushButton#btnRegisterR:pressed { background: #12803e; }
+QPushButton#btnLogin:disabled,
+QPushButton#btnRegisterR:disabled {
   background: #a7f3d0; color: #065f46; border-color: #86efac;
 }
 
-/* ===== Botón secundario (Login) ===== */
+/* ===== Botones secundarios (cambiar vista Login/Registro) ===== */
+QPushButton#btnRegister,
 QPushButton#btnLoginR {
   background: transparent;
   color: #0b3d2e;
@@ -165,11 +120,11 @@ QPushButton#btnLoginR {
   padding: 10px 16px;
   font-weight: 600;
 }
-QPushButton#btnRegisterR:hover {
+QPushButton#btnRegister:hover,
+QPushButton#btnLoginR:hover {
   border-color: #16a34a;
   color: #065f46;
 }
-
 </string>
   </property>
   <widget class="QStackedWidget" name="stackAuth">
@@ -311,12 +266,15 @@ QPushButton#btnRegisterR:hover {
          <string notr="true"/>
         </property>
         <property name="echoMode">
-         <enum>QLineEdit::PasswordEchoOnEdit</enum>
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
        <widget class="QPushButton" name="btnRegister">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Registrarse</string>
         </property>
@@ -324,11 +282,17 @@ QPushButton#btnRegisterR:hover {
       </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="btnLogin">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
         <property name="text">
          <string>Iniciar Sesion</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -390,11 +354,17 @@ QPushButton#btnRegisterR:hover {
       </property>
       <item row="4" column="1">
        <widget class="QPushButton" name="btnRegisterR">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
         <property name="text">
          <string>Registrarse</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -410,7 +380,7 @@ QPushButton#btnRegisterR:hover {
          <string notr="true"/>
         </property>
         <property name="echoMode">
-         <enum>QLineEdit::PasswordEchoOnEdit</enum>
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
@@ -439,6 +409,9 @@ QPushButton#btnRegisterR:hover {
       </item>
       <item row="4" column="0">
        <widget class="QPushButton" name="btnLoginR">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Iniciar Sesion</string>
         </property>
@@ -490,7 +463,7 @@ QPushButton#btnRegisterR:hover {
          <string notr="true"/>
         </property>
         <property name="echoMode">
-         <enum>QLineEdit::PasswordEchoOnEdit</enum>
+         <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
