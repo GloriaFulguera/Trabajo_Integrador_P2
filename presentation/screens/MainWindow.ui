@@ -1,0 +1,2600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* ===== Fondo general ===== */
+QMainWindow#MainWindow,
+QWidget#centralwidget {
+  background: qlineargradient(x1:0,y1:0,x2:1,y2:1, stop:0 #0b1210, stop:1 #0f1c17);
+  color: #E8EEF7;
+  font-family: &quot;Segoe UI&quot;,&quot;Inter&quot;,Arial;
+}
+
+QStackedWidget#stackMain {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+/* ===== Título superior (bienvenida) ===== */
+QLabel#lblWelcomeUser {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN (todas las páginas)
+   ======================================================= */
+QLabel#lblTituloCrearCuentas_3,
+QLabel#lblTituloComprarMoneda,
+QLabel#lblTituloVenderMoneda,
+QLabel#lblTituloDepositarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* =========================================================
+   LABELS DE CAMPO (todas las páginas)
+   ======================================================= */
+QLabel#lblMoneda_3,
+QLabel#lblCantidadCompra,
+QLabel#lblMonedaCompra,
+QLabel#lblMonedaVender,
+QLabel#lblCantidadVender,
+QLabel#lblCantidadDeposito {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* =========================================================
+   BOTONES PRINCIPALES &quot;VERDES&quot;
+   (se agrupan y se mantiene override para btnCerrar:disabled)
+   ======================================================= */
+QPushButton#btnCerrar,
+QPushButton#btnCreateAccount_3,
+QPushButton#btnPurchase,
+QPushButton#btnSell,
+QPushButton#btnDeposit {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnCerrar:hover,
+QPushButton#btnCreateAccount_3:hover,
+QPushButton#btnPurchase:hover,
+QPushButton#btnSell:hover,
+QPushButton#btnDeposit:hover   { background: #17b455; }
+
+QPushButton#btnCerrar:pressed,
+QPushButton#btnCreateAccount_3:pressed,
+QPushButton#btnPurchase:pressed,
+QPushButton#btnSell:pressed,
+QPushButton#btnDeposit:pressed { background: #12803e; }
+
+/* disabled general para los verdes (paginas); luego override para btnCerrar */
+QPushButton#btnCreateAccount_3:disabled,
+QPushButton#btnPurchase:disabled,
+QPushButton#btnSell:disabled,
+QPushButton#btnDeposit:disabled {
+  background: #e5f7ed;
+  color: #065f46;
+  border-color: #bfead3;
+}
+/* override: btnCerrar conserva su disabled original diferente */
+QPushButton#btnCerrar:disabled {
+  background: #a7f3d0;
+  color: #065f46;
+  border-color: #86efac;
+}
+
+/* =========================================================
+   BOTONES SECUNDARIOS (menú)
+   ======================================================= */
+QPushButton#btnCreateAccountM,
+QPushButton#btnDepositM,
+QPushButton#btnPurchaseM,
+QPushButton#btnSellM {
+  background: #ffffff;
+  color: #0b3d2e;
+  border: 1px solid #94a3b8;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnCreateAccountM:hover,
+QPushButton#btnDepositM:hover,
+QPushButton#btnPurchaseM:hover,
+QPushButton#btnSellM:hover {
+  background: #16a34a;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* =========================================================
+   COMBOBOX (todas las páginas)
+   ======================================================= */
+QComboBox#cmbCurrency_3,
+QComboBox#cmbPurchaseCurrency,
+QComboBox#cmbSellCurrency {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  /* espacio para flecha */
+  min-height: 34px;
+}
+QComboBox#cmbCurrency_3:focus,
+QComboBox#cmbPurchaseCurrency:focus,
+QComboBox#cmbSellCurrency:focus {
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QComboBox#cmbCurrency_3::drop-down,
+QComboBox#cmbPurchaseCurrency::drop-down,
+QComboBox#cmbSellCurrency::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrency_3 QAbstractItemView,
+QComboBox#cmbPurchaseCurrency QAbstractItemView,
+QComboBox#cmbSellCurrency QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* =========================================================
+   LINE EDITS (todas las páginas)
+   ======================================================= */
+QLineEdit#txtPurchaseAmount,
+QLineEdit#txtSellAmount,
+QLineEdit#txtAmount {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtPurchaseAmount:focus,
+QLineEdit#txtSellAmount:focus,
+QLineEdit#txtAmount:focus {
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtPurchaseAmount::placeholder,
+QLineEdit#txtSellAmount::placeholder,
+QLineEdit#txtAmount::placeholder,
+QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackMain">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>140</y>
+      <width>700</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>700</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>700</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page">
+     <widget class="QFrame" name="frame">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>691</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,1,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0" columnminimumwidth="0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lblMoneda_3">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ingrese la moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloCrearCuentas_3">
+         <property name="text">
+          <string>Crear cuenta nueva</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <spacer name="verticalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="2">
+        <spacer name="verticalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="btnCreateAccount_3">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Crear cuenta</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QComboBox" name="cmbCurrency_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <item>
+            <property name="text">
+              <string>SELECCIONAR</string>
+            </property>
+          </item>
+          <item><property name="text"><string>ARS</string></property></item>
+          <item><property name="text"><string>USD</string></property></item>
+          <item><property name="text"><string>EUR</string></property></item>
+          <item><property name="text"><string>ABT</string></property></item>
+          <item><property name="text"><string>ACH</string></property></item>
+          <item><property name="text"><string>ACS</string></property></item>
+          <item><property name="text"><string>ACT</string></property></item>
+          <item><property name="text"><string>ACX</string></property></item>
+          <item><property name="text"><string>ADA</string></property></item>
+          <item><property name="text"><string>AED</string></property></item>
+          <item><property name="text"><string>AFN</string></property></item>
+          <item><property name="text"><string>AGI</string></property></item>
+          <item><property name="text"><string>AIC</string></property></item>
+          <item><property name="text"><string>AKT</string></property></item>
+          <item><property name="text"><string>ALL</string></property></item>
+          <item><property name="text"><string>ALT</string></property></item>
+          <item><property name="text"><string>AMD</string></property></item>
+          <item><property name="text"><string>AMP</string></property></item>
+          <item><property name="text"><string>ANG</string></property></item>
+          <item><property name="text"><string>ANT</string></property></item>
+          <item><property name="text"><string>AOA</string></property></item>
+          <item><property name="text"><string>APE</string></property></item>
+          <item><property name="text"><string>APT</string></property></item>
+          <item><property name="text"><string>APU</string></property></item>
+          <item><property name="text"><string>ARB</string></property></item>
+          <item><property name="text"><string>ARC</string></property></item>
+          <item><property name="text"><string>ARK</string></property></item>
+          <item><property name="text"><string>ASM</string></property></item>
+          <item><property name="text"><string>AST</string></property></item>
+          <item><property name="text"><string>ATA</string></property></item>
+          <item><property name="text"><string>ATH</string></property></item>
+          <item><property name="text"><string>AUD</string></property></item>
+          <item><property name="text"><string>AVT</string></property></item>
+          <item><property name="text"><string>AWE</string></property></item>
+          <item><property name="text"><string>AWG</string></property></item>
+          <item><property name="text"><string>AXL</string></property></item>
+          <item><property name="text"><string>AXS</string></property></item>
+          <item><property name="text"><string>AZN</string></property></item>
+          <item><property name="text"><string>BAL</string></property></item>
+          <item><property name="text"><string>BAM</string></property></item>
+          <item><property name="text"><string>BAN</string></property></item>
+          <item><property name="text"><string>BAT</string></property></item>
+          <item><property name="text"><string>BBD</string></property></item>
+          <item><property name="text"><string>BCH</string></property></item>
+          <item><property name="text"><string>BDT</string></property></item>
+          <item><property name="text"><string>BDX</string></property></item>
+          <item><property name="text"><string>BGB</string></property></item>
+          <item><property name="text"><string>BGN</string></property></item>
+          <item><property name="text"><string>BHD</string></property></item>
+          <item><property name="text"><string>BIF</string></property></item>
+          <item><property name="text"><string>BIO</string></property></item>
+          <item><property name="text"><string>BIT</string></property></item>
+          <item><property name="text"><string>BLD</string></property></item>
+          <item><property name="text"><string>BLZ</string></property></item>
+          <item><property name="text"><string>BMD</string></property></item>
+          <item><property name="text"><string>BNB</string></property></item>
+          <item><property name="text"><string>BND</string></property></item>
+          <item><property name="text"><string>BNT</string></property></item>
+          <item><property name="text"><string>BOB</string></property></item>
+          <item><property name="text"><string>BPX</string></property></item>
+          <item><property name="text"><string>BRL</string></property></item>
+          <item><property name="text"><string>BSD</string></property></item>
+          <item><property name="text"><string>BSV</string></property></item>
+          <item><property name="text"><string>BTC</string></property></item>
+          <item><property name="text"><string>BTG</string></property></item>
+          <item><property name="text"><string>BTN</string></property></item>
+          <item><property name="text"><string>BTT</string></property></item>
+          <item><property name="text"><string>BWP</string></property></item>
+          <item><property name="text"><string>BYN</string></property></item>
+          <item><property name="text"><string>BYR</string></property></item>
+          <item><property name="text"><string>BZD</string></property></item>
+          <item><property name="text"><string>BZR</string></property></item>
+          <item><property name="text"><string>CAD</string></property></item>
+          <item><property name="text"><string>CAF</string></property></item>
+          <item><property name="text"><string>CAR</string></property></item>
+          <item><property name="text"><string>CAT</string></property></item>
+          <item><property name="text"><string>CDF</string></property></item>
+          <item><property name="text"><string>CEL</string></property></item>
+          <item><property name="text"><string>CET</string></property></item>
+          <item><property name="text"><string>CFG</string></property></item>
+          <item><property name="text"><string>CFX</string></property></item>
+          <item><property name="text"><string>CHF</string></property></item>
+          <item><property name="text"><string>CHR</string></property></item>
+          <item><property name="text"><string>CHZ</string></property></item>
+          <item><property name="text"><string>CKB</string></property></item>
+          <item><property name="text"><string>CLF</string></property></item>
+          <item><property name="text"><string>CLP</string></property></item>
+          <item><property name="text"><string>CLV</string></property></item>
+          <item><property name="text"><string>CNH</string></property></item>
+          <item><property name="text"><string>CNY</string></property></item>
+          <item><property name="text"><string>COP</string></property></item>
+          <item><property name="text"><string>COQ</string></property></item>
+          <item><property name="text"><string>COW</string></property></item>
+          <item><property name="text"><string>CRC</string></property></item>
+          <item><property name="text"><string>CRE</string></property></item>
+          <item><property name="text"><string>CRO</string></property></item>
+          <item><property name="text"><string>CRV</string></property></item>
+          <item><property name="text"><string>CTB</string></property></item>
+          <item><property name="text"><string>CTC</string></property></item>
+          <item><property name="text"><string>CTX</string></property></item>
+          <item><property name="text"><string>CUC</string></property></item>
+          <item><property name="text"><string>CUP</string></property></item>
+          <item><property name="text"><string>CVC</string></property></item>
+          <item><property name="text"><string>CVE</string></property></item>
+          <item><property name="text"><string>CVX</string></property></item>
+          <item><property name="text"><string>CZK</string></property></item>
+          <item><property name="text"><string>DAG</string></property></item>
+          <item><property name="text"><string>DAI</string></property></item>
+          <item><property name="text"><string>DAO</string></property></item>
+          <item><property name="text"><string>DAR</string></property></item>
+          <item><property name="text"><string>DCR</string></property></item>
+          <item><property name="text"><string>DDX</string></property></item>
+          <item><property name="text"><string>DGB</string></property></item>
+          <item><property name="text"><string>DHN</string></property></item>
+          <item><property name="text"><string>DIA</string></property></item>
+          <item><property name="text"><string>DJF</string></property></item>
+          <item><property name="text"><string>DKK</string></property></item>
+          <item><property name="text"><string>DNT</string></property></item>
+          <item><property name="text"><string>DOG</string></property></item>
+          <item><property name="text"><string>DOP</string></property></item>
+          <item><property name="text"><string>DOT</string></property></item>
+          <item><property name="text"><string>DYM</string></property></item>
+          <item><property name="text"><string>DYP</string></property></item>
+          <item><property name="text"><string>DZD</string></property></item>
+          <item><property name="text"><string>EDU</string></property></item>
+          <item><property name="text"><string>EEK</string></property></item>
+          <item><property name="text"><string>EGP</string></property></item>
+          <item><property name="text"><string>ELA</string></property></item>
+          <item><property name="text"><string>ELF</string></property></item>
+          <item><property name="text"><string>ELG</string></property></item>
+          <item><property name="text"><string>EML</string></property></item>
+          <item><property name="text"><string>ENA</string></property></item>
+          <item><property name="text"><string>ENJ</string></property></item>
+          <item><property name="text"><string>ENS</string></property></item>
+          <item><property name="text"><string>EOS</string></property></item>
+          <item><property name="text"><string>ERN</string></property></item>
+          <item><property name="text"><string>ETB</string></property></item>
+          <item><property name="text"><string>ETC</string></property></item>
+          <item><property name="text"><string>ETH</string></property></item>
+          <item><property name="text"><string>FAI</string></property></item>
+          <item><property name="text"><string>FET</string></property></item>
+          <item><property name="text"><string>FIL</string></property></item>
+          <item><property name="text"><string>FIS</string></property></item>
+          <item><property name="text"><string>FJD</string></property></item>
+          <item><property name="text"><string>FKP</string></property></item>
+          <item><property name="text"><string>FLR</string></property></item>
+          <item><property name="text"><string>FOX</string></property></item>
+          <item><property name="text"><string>FTM</string></property></item>
+          <item><property name="text"><string>FTN</string></property></item>
+          <item><property name="text"><string>FTW</string></property></item>
+          <item><property name="text"><string>GAJ</string></property></item>
+          <item><property name="text"><string>GAL</string></property></item>
+          <item><property name="text"><string>GAS</string></property></item>
+          <item><property name="text"><string>GBP</string></property></item>
+          <item><property name="text"><string>GEL</string></property></item>
+          <item><property name="text"><string>GFI</string></property></item>
+          <item><property name="text"><string>GGP</string></property></item>
+          <item><property name="text"><string>GHO</string></property></item>
+          <item><property name="text"><string>GHS</string></property></item>
+          <item><property name="text"><string>GIP</string></property></item>
+          <item><property name="text"><string>GLM</string></property></item>
+          <item><property name="text"><string>GMD</string></property></item>
+          <item><property name="text"><string>GMT</string></property></item>
+          <item><property name="text"><string>GMX</string></property></item>
+          <item><property name="text"><string>GNF</string></property></item>
+          <item><property name="text"><string>GNO</string></property></item>
+          <item><property name="text"><string>GNS</string></property></item>
+          <item><property name="text"><string>GNT</string></property></item>
+          <item><property name="text"><string>GPS</string></property></item>
+          <item><property name="text"><string>GRT</string></property></item>
+          <item><property name="text"><string>GST</string></property></item>
+          <item><property name="text"><string>GTC</string></property></item>
+          <item><property name="text"><string>GTQ</string></property></item>
+          <item><property name="text"><string>GXC</string></property></item>
+          <item><property name="text"><string>GYD</string></property></item>
+          <item><property name="text"><string>HFT</string></property></item>
+          <item><property name="text"><string>HKD</string></property></item>
+          <item><property name="text"><string>HNL</string></property></item>
+          <item><property name="text"><string>HNT</string></property></item>
+          <item><property name="text"><string>HOT</string></property></item>
+          <item><property name="text"><string>HRK</string></property></item>
+          <item><property name="text"><string>HTG</string></property></item>
+          <item><property name="text"><string>HUF</string></property></item>
+          <item><property name="text"><string>ICP</string></property></item>
+          <item><property name="text"><string>ICX</string></property></item>
+          <item><property name="text"><string>IDR</string></property></item>
+          <item><property name="text"><string>ILS</string></property></item>
+          <item><property name="text"><string>ILV</string></property></item>
+          <item><property name="text"><string>IMP</string></property></item>
+          <item><property name="text"><string>IMX</string></property></item>
+          <item><property name="text"><string>INJ</string></property></item>
+          <item><property name="text"><string>INR</string></property></item>
+          <item><property name="text"><string>INV</string></property></item>
+          <item><property name="text"><string>IQD</string></property></item>
+          <item><property name="text"><string>IRR</string></property></item>
+          <item><property name="text"><string>ISK</string></property></item>
+          <item><property name="text"><string>JEP</string></property></item>
+          <item><property name="text"><string>JET</string></property></item>
+          <item><property name="text"><string>JMD</string></property></item>
+          <item><property name="text"><string>JOD</string></property></item>
+          <item><property name="text"><string>JOE</string></property></item>
+          <item><property name="text"><string>JPY</string></property></item>
+          <item><property name="text"><string>JST</string></property></item>
+          <item><property name="text"><string>JTO</string></property></item>
+          <item><property name="text"><string>JUP</string></property></item>
+          <item><property name="text"><string>KAS</string></property></item>
+          <item><property name="text"><string>KCS</string></property></item>
+          <item><property name="text"><string>KDA</string></property></item>
+          <item><property name="text"><string>KES</string></property></item>
+          <item><property name="text"><string>KET</string></property></item>
+          <item><property name="text"><string>KGS</string></property></item>
+          <item><property name="text"><string>KHR</string></property></item>
+          <item><property name="text"><string>KMF</string></property></item>
+          <item><property name="text"><string>KNC</string></property></item>
+          <item><property name="text"><string>KPK</string></property></item>
+          <item><property name="text"><string>KPW</string></property></item>
+          <item><property name="text"><string>KRD</string></property></item>
+          <item><property name="text"><string>KRL</string></property></item>
+          <item><property name="text"><string>KRW</string></property></item>
+          <item><property name="text"><string>KSM</string></property></item>
+          <item><property name="text"><string>KUB</string></property></item>
+          <item><property name="text"><string>KWD</string></property></item>
+          <item><property name="text"><string>KYD</string></property></item>
+          <item><property name="text"><string>KZT</string></property></item>
+          <item><property name="text"><string>LAK</string></property></item>
+          <item><property name="text"><string>LBP</string></property></item>
+          <item><property name="text"><string>LCX</string></property></item>
+          <item><property name="text"><string>LDO</string></property></item>
+          <item><property name="text"><string>LEO</string></property></item>
+          <item><property name="text"><string>LIT</string></property></item>
+          <item><property name="text"><string>LKR</string></property></item>
+          <item><property name="text"><string>LPT</string></property></item>
+          <item><property name="text"><string>LQR</string></property></item>
+          <item><property name="text"><string>LRC</string></property></item>
+          <item><property name="text"><string>LRD</string></property></item>
+          <item><property name="text"><string>LSD</string></property></item>
+          <item><property name="text"><string>LSK</string></property></item>
+          <item><property name="text"><string>LSL</string></property></item>
+          <item><property name="text"><string>LTC</string></property></item>
+          <item><property name="text"><string>LTL</string></property></item>
+          <item><property name="text"><string>LVL</string></property></item>
+          <item><property name="text"><string>LYD</string></property></item>
+          <item><property name="text"><string>LYX</string></property></item>
+          <item><property name="text"><string>MAD</string></property></item>
+          <item><property name="text"><string>MAV</string></property></item>
+          <item><property name="text"><string>MDL</string></property></item>
+          <item><property name="text"><string>MDT</string></property></item>
+          <item><property name="text"><string>MEW</string></property></item>
+          <item><property name="text"><string>MGA</string></property></item>
+          <item><property name="text"><string>MIR</string></property></item>
+          <item><property name="text"><string>MKD</string></property></item>
+          <item><property name="text"><string>MKR</string></property></item>
+          <item><property name="text"><string>MLN</string></property></item>
+          <item><property name="text"><string>MMK</string></property></item>
+          <item><property name="text"><string>MMX</string></property></item>
+          <item><property name="text"><string>MNT</string></property></item>
+          <item><property name="text"><string>MOG</string></property></item>
+          <item><property name="text"><string>MOP</string></property></item>
+          <item><property name="text"><string>MPL</string></property></item>
+          <item><property name="text"><string>MRO</string></property></item>
+          <item><property name="text"><string>MRS</string></property></item>
+          <item><property name="text"><string>MRU</string></property></item>
+          <item><property name="text"><string>MTD</string></property></item>
+          <item><property name="text"><string>MTL</string></property></item>
+          <item><property name="text"><string>MUR</string></property></item>
+          <item><property name="text"><string>MVR</string></property></item>
+          <item><property name="text"><string>MWC</string></property></item>
+          <item><property name="text"><string>MWK</string></property></item>
+          <item><property name="text"><string>MXC</string></property></item>
+          <item><property name="text"><string>MXN</string></property></item>
+          <item><property name="text"><string>MYR</string></property></item>
+          <item><property name="text"><string>MZN</string></property></item>
+          <item><property name="text"><string>NAD</string></property></item>
+          <item><property name="text"><string>NCT</string></property></item>
+          <item><property name="text"><string>NEI</string></property></item>
+          <item><property name="text"><string>NEO</string></property></item>
+          <item><property name="text"><string>NFT</string></property></item>
+          <item><property name="text"><string>NGN</string></property></item>
+          <item><property name="text"><string>NIO</string></property></item>
+          <item><property name="text"><string>NKN</string></property></item>
+          <item><property name="text"><string>NMR</string></property></item>
+          <item><property name="text"><string>NMT</string></property></item>
+          <item><property name="text"><string>NOK</string></property></item>
+          <item><property name="text"><string>NOS</string></property></item>
+          <item><property name="text"><string>NOT</string></property></item>
+          <item><property name="text"><string>NPC</string></property></item>
+          <item><property name="text"><string>NPR</string></property></item>
+          <item><property name="text"><string>NXM</string></property></item>
+          <item><property name="text"><string>NZD</string></property></item>
+          <item><property name="text"><string>OAS</string></property></item>
+          <item><property name="text"><string>OGN</string></property></item>
+          <item><property name="text"><string>OHM</string></property></item>
+          <item><property name="text"><string>OKB</string></property></item>
+          <item><property name="text"><string>OKT</string></property></item>
+          <item><property name="text"><string>OMG</string></property></item>
+          <item><property name="text"><string>OMI</string></property></item>
+          <item><property name="text"><string>OMR</string></property></item>
+          <item><property name="text"><string>ONE</string></property></item>
+          <item><property name="text"><string>ONG</string></property></item>
+          <item><property name="text"><string>ONT</string></property></item>
+          <item><property name="text"><string>ORA</string></property></item>
+          <item><property name="text"><string>ORN</string></property></item>
+          <item><property name="text"><string>OXT</string></property></item>
+          <item><property name="text"><string>PAB</string></property></item>
+          <item><property name="text"><string>PAX</string></property></item>
+          <item><property name="text"><string>PCI</string></property></item>
+          <item><property name="text"><string>PEN</string></property></item>
+          <item><property name="text"><string>PGK</string></property></item>
+          <item><property name="text"><string>PHA</string></property></item>
+          <item><property name="text"><string>PHP</string></property></item>
+          <item><property name="text"><string>PIP</string></property></item>
+          <item><property name="text"><string>PKR</string></property></item>
+          <item><property name="text"><string>PLA</string></property></item>
+          <item><property name="text"><string>PLN</string></property></item>
+          <item><property name="text"><string>PLU</string></property></item>
+          <item><property name="text"><string>PNG</string></property></item>
+          <item><property name="text"><string>POL</string></property></item>
+          <item><property name="text"><string>PRO</string></property></item>
+          <item><property name="text"><string>PRQ</string></property></item>
+          <item><property name="text"><string>PYG</string></property></item>
+          <item><property name="text"><string>PYR</string></property></item>
+          <item><property name="text"><string>QAI</string></property></item>
+          <item><property name="text"><string>QAR</string></property></item>
+          <item><property name="text"><string>QNT</string></property></item>
+          <item><property name="text"><string>RAD</string></property></item>
+          <item><property name="text"><string>RAI</string></property></item>
+          <item><property name="text"><string>RAY</string></property></item>
+          <item><property name="text"><string>RBN</string></property></item>
+          <item><property name="text"><string>RED</string></property></item>
+          <item><property name="text"><string>REI</string></property></item>
+          <item><property name="text"><string>REN</string></property></item>
+          <item><property name="text"><string>REP</string></property></item>
+          <item><property name="text"><string>REQ</string></property></item>
+          <item><property name="text"><string>REZ</string></property></item>
+          <item><property name="text"><string>RGT</string></property></item>
+          <item><property name="text"><string>RIF</string></property></item>
+          <item><property name="text"><string>RLB</string></property></item>
+          <item><property name="text"><string>RLC</string></property></item>
+          <item><property name="text"><string>RLY</string></property></item>
+          <item><property name="text"><string>RON</string></property></item>
+          <item><property name="text"><string>RPL</string></property></item>
+          <item><property name="text"><string>RSD</string></property></item>
+          <item><property name="text"><string>RSR</string></property></item>
+          <item><property name="text"><string>RUB</string></property></item>
+          <item><property name="text"><string>RVN</string></property></item>
+          <item><property name="text"><string>RWF</string></property></item>
+          <item><property name="text"><string>SAR</string></property></item>
+          <item><property name="text"><string>SBD</string></property></item>
+          <item><property name="text"><string>SCR</string></property></item>
+          <item><property name="text"><string>SDG</string></property></item>
+          <item><property name="text"><string>SEI</string></property></item>
+          <item><property name="text"><string>SEK</string></property></item>
+          <item><property name="text"><string>SFP</string></property></item>
+          <item><property name="text"><string>SGB</string></property></item>
+          <item><property name="text"><string>SGD</string></property></item>
+          <item><property name="text"><string>SHP</string></property></item>
+          <item><property name="text"><string>SKK</string></property></item>
+          <item><property name="text"><string>SKL</string></property></item>
+          <item><property name="text"><string>SLE</string></property></item>
+          <item><property name="text"><string>SLL</string></property></item>
+          <item><property name="text"><string>SLP</string></property></item>
+          <item><property name="text"><string>SNT</string></property></item>
+          <item><property name="text"><string>SNX</string></property></item>
+          <item><property name="text"><string>SOL</string></property></item>
+          <item><property name="text"><string>SOS</string></property></item>
+          <item><property name="text"><string>SPA</string></property></item>
+          <item><property name="text"><string>SPK</string></property></item>
+          <item><property name="text"><string>SPX</string></property></item>
+          <item><property name="text"><string>SQD</string></property></item>
+          <item><property name="text"><string>SRD</string></property></item>
+          <item><property name="text"><string>SSP</string></property></item>
+          <item><property name="text"><string>SSV</string></property></item>
+          <item><property name="text"><string>STD</string></property></item>
+          <item><property name="text"><string>STG</string></property></item>
+          <item><property name="text"><string>STN</string></property></item>
+          <item><property name="text"><string>STX</string></property></item>
+          <item><property name="text"><string>SUI</string></property></item>
+          <item><property name="text"><string>SUN</string></property></item>
+          <item><property name="text"><string>SVC</string></property></item>
+          <item><property name="text"><string>SXP</string></property></item>
+          <item><property name="text"><string>SXT</string></property></item>
+          <item><property name="text"><string>SYN</string></property></item>
+          <item><property name="text"><string>SYP</string></property></item>
+          <item><property name="text"><string>SZL</string></property></item>
+          <item><property name="text"><string>TAO</string></property></item>
+          <item><property name="text"><string>TEL</string></property></item>
+          <item><property name="text"><string>TET</string></property></item>
+          <item><property name="text"><string>THB</string></property></item>
+          <item><property name="text"><string>TIA</string></property></item>
+          <item><property name="text"><string>TJS</string></property></item>
+          <item><property name="text"><string>TKX</string></property></item>
+          <item><property name="text"><string>TMM</string></property></item>
+          <item><property name="text"><string>TMT</string></property></item>
+          <item><property name="text"><string>TND</string></property></item>
+          <item><property name="text"><string>TON</string></property></item>
+          <item><property name="text"><string>TOP</string></property></item>
+          <item><property name="text"><string>TOR</string></property></item>
+          <item><property name="text"><string>TRB</string></property></item>
+          <item><property name="text"><string>TRU</string></property></item>
+          <item><property name="text"><string>TRX</string></property></item>
+          <item><property name="text"><string>TRY</string></property></item>
+          <item><property name="text"><string>TST</string></property></item>
+          <item><property name="text"><string>TTD</string></property></item>
+          <item><property name="text"><string>TVK</string></property></item>
+          <item><property name="text"><string>TWD</string></property></item>
+          <item><property name="text"><string>TWT</string></property></item>
+          <item><property name="text"><string>TZS</string></property></item>
+          <item><property name="text"><string>UAH</string></property></item>
+          <item><property name="text"><string>UFD</string></property></item>
+          <item><property name="text"><string>UGX</string></property></item>
+          <item><property name="text"><string>UMA</string></property></item>
+          <item><property name="text"><string>UNI</string></property></item>
+          <item><property name="text"><string>UOS</string></property></item>
+          <item><property name="text"><string>UPI</string></property></item>
+          <item><property name="text"><string>UQC</string></property></item>
+          <item><property name="text"><string>USR</string></property></item>
+          <item><property name="text"><string>UST</string></property></item>
+          <item><property name="text"><string>UYU</string></property></item>
+          <item><property name="text"><string>UZS</string></property></item>
+          <item><property name="text"><string>VEF</string></property></item>
+          <item><property name="text"><string>VES</string></property></item>
+          <item><property name="text"><string>VET</string></property></item>
+          <item><property name="text"><string>VGX</string></property></item>
+          <item><property name="text"><string>VND</string></property></item>
+          <item><property name="text"><string>VUV</string></property></item>
+          <item><property name="text"><string>VVV</string></property></item>
+          <item><property name="text"><string>WAL</string></property></item>
+          <item><property name="text"><string>WBT</string></property></item>
+          <item><property name="text"><string>WEN</string></property></item>
+          <item><property name="text"><string>WIF</string></property></item>
+          <item><property name="text"><string>WLD</string></property></item>
+          <item><property name="text"><string>WOO</string></property></item>
+          <item><property name="text"><string>WST</string></property></item>
+          <item><property name="text"><string>XAF</string></property></item>
+          <item><property name="text"><string>XAG</string></property></item>
+          <item><property name="text"><string>XAI</string></property></item>
+          <item><property name="text"><string>XAU</string></property></item>
+          <item><property name="text"><string>XCD</string></property></item>
+          <item><property name="text"><string>XCG</string></property></item>
+          <item><property name="text"><string>XCH</string></property></item>
+          <item><property name="text"><string>XCN</string></property></item>
+          <item><property name="text"><string>XDC</string></property></item>
+          <item><property name="text"><string>XDR</string></property></item>
+          <item><property name="text"><string>XEC</string></property></item>
+          <item><property name="text"><string>XEM</string></property></item>
+          <item><property name="text"><string>XLM</string></property></item>
+          <item><property name="text"><string>XMR</string></property></item>
+          <item><property name="text"><string>XOF</string></property></item>
+          <item><property name="text"><string>XPD</string></property></item>
+          <item><property name="text"><string>XPF</string></property></item>
+          <item><property name="text"><string>XPT</string></property></item>
+          <item><property name="text"><string>XRD</string></property></item>
+          <item><property name="text"><string>XRP</string></property></item>
+          <item><property name="text"><string>XTZ</string></property></item>
+          <item><property name="text"><string>XVS</string></property></item>
+          <item><property name="text"><string>XYO</string></property></item>
+          <item><property name="text"><string>YER</string></property></item>
+          <item><property name="text"><string>YFI</string></property></item>
+          <item><property name="text"><string>YGG</string></property></item>
+          <item><property name="text"><string>ZAR</string></property></item>
+          <item><property name="text"><string>ZBC</string></property></item>
+          <item><property name="text"><string>ZEC</string></property></item>
+          <item><property name="text"><string>ZEN</string></property></item>
+          <item><property name="text"><string>ZIL</string></property></item>
+          <item><property name="text"><string>ZMK</string></property></item>
+          <item><property name="text"><string>ZMW</string></property></item>
+          <item><property name="text"><string>ZRO</string></property></item>
+          <item><property name="text"><string>ZRX</string></property></item>
+          <item><property name="text"><string>ZWD</string></property></item>
+          <item><property name="text"><string>ZWL</string></property></item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QFrame" name="ComprarMonedaFrame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>691</width>
+         <height>400</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>700</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,1,1,0,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0,0" columnminimumwidth="0,0,0">
+        <property name="leftMargin">
+         <number>30</number>
+        </property>
+        <property name="topMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>30</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <item row="6" column="1">
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="btnPurchase">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Comprar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <spacer name="verticalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="cmbPurchaseCurrency">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>40</height>
+           </size>
+          </property>
+          <item>
+            <property name="text">
+              <string>SELECCIONAR</string>
+            </property>
+          </item>
+          <item><property name="text"><string>ARS</string></property></item>
+          <item><property name="text"><string>USD</string></property></item>
+          <item><property name="text"><string>EUR</string></property></item>
+          <item><property name="text"><string>ABT</string></property></item>
+          <item><property name="text"><string>ACH</string></property></item>
+          <item><property name="text"><string>ACS</string></property></item>
+          <item><property name="text"><string>ACT</string></property></item>
+          <item><property name="text"><string>ACX</string></property></item>
+          <item><property name="text"><string>ADA</string></property></item>
+          <item><property name="text"><string>AED</string></property></item>
+          <item><property name="text"><string>AFN</string></property></item>
+          <item><property name="text"><string>AGI</string></property></item>
+          <item><property name="text"><string>AIC</string></property></item>
+          <item><property name="text"><string>AKT</string></property></item>
+          <item><property name="text"><string>ALL</string></property></item>
+          <item><property name="text"><string>ALT</string></property></item>
+          <item><property name="text"><string>AMD</string></property></item>
+          <item><property name="text"><string>AMP</string></property></item>
+          <item><property name="text"><string>ANG</string></property></item>
+          <item><property name="text"><string>ANT</string></property></item>
+          <item><property name="text"><string>AOA</string></property></item>
+          <item><property name="text"><string>APE</string></property></item>
+          <item><property name="text"><string>APT</string></property></item>
+          <item><property name="text"><string>APU</string></property></item>
+          <item><property name="text"><string>ARB</string></property></item>
+          <item><property name="text"><string>ARC</string></property></item>
+          <item><property name="text"><string>ARK</string></property></item>
+          <item><property name="text"><string>ASM</string></property></item>
+          <item><property name="text"><string>AST</string></property></item>
+          <item><property name="text"><string>ATA</string></property></item>
+          <item><property name="text"><string>ATH</string></property></item>
+          <item><property name="text"><string>AUD</string></property></item>
+          <item><property name="text"><string>AVT</string></property></item>
+          <item><property name="text"><string>AWE</string></property></item>
+          <item><property name="text"><string>AWG</string></property></item>
+          <item><property name="text"><string>AXL</string></property></item>
+          <item><property name="text"><string>AXS</string></property></item>
+          <item><property name="text"><string>AZN</string></property></item>
+          <item><property name="text"><string>BAL</string></property></item>
+          <item><property name="text"><string>BAM</string></property></item>
+          <item><property name="text"><string>BAN</string></property></item>
+          <item><property name="text"><string>BAT</string></property></item>
+          <item><property name="text"><string>BBD</string></property></item>
+          <item><property name="text"><string>BCH</string></property></item>
+          <item><property name="text"><string>BDT</string></property></item>
+          <item><property name="text"><string>BDX</string></property></item>
+          <item><property name="text"><string>BGB</string></property></item>
+          <item><property name="text"><string>BGN</string></property></item>
+          <item><property name="text"><string>BHD</string></property></item>
+          <item><property name="text"><string>BIF</string></property></item>
+          <item><property name="text"><string>BIO</string></property></item>
+          <item><property name="text"><string>BIT</string></property></item>
+          <item><property name="text"><string>BLD</string></property></item>
+          <item><property name="text"><string>BLZ</string></property></item>
+          <item><property name="text"><string>BMD</string></property></item>
+          <item><property name="text"><string>BNB</string></property></item>
+          <item><property name="text"><string>BND</string></property></item>
+          <item><property name="text"><string>BNT</string></property></item>
+          <item><property name="text"><string>BOB</string></property></item>
+          <item><property name="text"><string>BPX</string></property></item>
+          <item><property name="text"><string>BRL</string></property></item>
+          <item><property name="text"><string>BSD</string></property></item>
+          <item><property name="text"><string>BSV</string></property></item>
+          <item><property name="text"><string>BTC</string></property></item>
+          <item><property name="text"><string>BTG</string></property></item>
+          <item><property name="text"><string>BTN</string></property></item>
+          <item><property name="text"><string>BTT</string></property></item>
+          <item><property name="text"><string>BWP</string></property></item>
+          <item><property name="text"><string>BYN</string></property></item>
+          <item><property name="text"><string>BYR</string></property></item>
+          <item><property name="text"><string>BZD</string></property></item>
+          <item><property name="text"><string>BZR</string></property></item>
+          <item><property name="text"><string>CAD</string></property></item>
+          <item><property name="text"><string>CAF</string></property></item>
+          <item><property name="text"><string>CAR</string></property></item>
+          <item><property name="text"><string>CAT</string></property></item>
+          <item><property name="text"><string>CDF</string></property></item>
+          <item><property name="text"><string>CEL</string></property></item>
+          <item><property name="text"><string>CET</string></property></item>
+          <item><property name="text"><string>CFG</string></property></item>
+          <item><property name="text"><string>CFX</string></property></item>
+          <item><property name="text"><string>CHF</string></property></item>
+          <item><property name="text"><string>CHR</string></property></item>
+          <item><property name="text"><string>CHZ</string></property></item>
+          <item><property name="text"><string>CKB</string></property></item>
+          <item><property name="text"><string>CLF</string></property></item>
+          <item><property name="text"><string>CLP</string></property></item>
+          <item><property name="text"><string>CLV</string></property></item>
+          <item><property name="text"><string>CNH</string></property></item>
+          <item><property name="text"><string>CNY</string></property></item>
+          <item><property name="text"><string>COP</string></property></item>
+          <item><property name="text"><string>COQ</string></property></item>
+          <item><property name="text"><string>COW</string></property></item>
+          <item><property name="text"><string>CRC</string></property></item>
+          <item><property name="text"><string>CRE</string></property></item>
+          <item><property name="text"><string>CRO</string></property></item>
+          <item><property name="text"><string>CRV</string></property></item>
+          <item><property name="text"><string>CTB</string></property></item>
+          <item><property name="text"><string>CTC</string></property></item>
+          <item><property name="text"><string>CTX</string></property></item>
+          <item><property name="text"><string>CUC</string></property></item>
+          <item><property name="text"><string>CUP</string></property></item>
+          <item><property name="text"><string>CVC</string></property></item>
+          <item><property name="text"><string>CVE</string></property></item>
+          <item><property name="text"><string>CVX</string></property></item>
+          <item><property name="text"><string>CZK</string></property></item>
+          <item><property name="text"><string>DAG</string></property></item>
+          <item><property name="text"><string>DAI</string></property></item>
+          <item><property name="text"><string>DAO</string></property></item>
+          <item><property name="text"><string>DAR</string></property></item>
+          <item><property name="text"><string>DCR</string></property></item>
+          <item><property name="text"><string>DDX</string></property></item>
+          <item><property name="text"><string>DGB</string></property></item>
+          <item><property name="text"><string>DHN</string></property></item>
+          <item><property name="text"><string>DIA</string></property></item>
+          <item><property name="text"><string>DJF</string></property></item>
+          <item><property name="text"><string>DKK</string></property></item>
+          <item><property name="text"><string>DNT</string></property></item>
+          <item><property name="text"><string>DOG</string></property></item>
+          <item><property name="text"><string>DOP</string></property></item>
+          <item><property name="text"><string>DOT</string></property></item>
+          <item><property name="text"><string>DYM</string></property></item>
+          <item><property name="text"><string>DYP</string></property></item>
+          <item><property name="text"><string>DZD</string></property></item>
+          <item><property name="text"><string>EDU</string></property></item>
+          <item><property name="text"><string>EEK</string></property></item>
+          <item><property name="text"><string>EGP</string></property></item>
+          <item><property name="text"><string>ELA</string></property></item>
+          <item><property name="text"><string>ELF</string></property></item>
+          <item><property name="text"><string>ELG</string></property></item>
+          <item><property name="text"><string>EML</string></property></item>
+          <item><property name="text"><string>ENA</string></property></item>
+          <item><property name="text"><string>ENJ</string></property></item>
+          <item><property name="text"><string>ENS</string></property></item>
+          <item><property name="text"><string>EOS</string></property></item>
+          <item><property name="text"><string>ERN</string></property></item>
+          <item><property name="text"><string>ETB</string></property></item>
+          <item><property name="text"><string>ETC</string></property></item>
+          <item><property name="text"><string>ETH</string></property></item>
+          <item><property name="text"><string>FAI</string></property></item>
+          <item><property name="text"><string>FET</string></property></item>
+          <item><property name="text"><string>FIL</string></property></item>
+          <item><property name="text"><string>FIS</string></property></item>
+          <item><property name="text"><string>FJD</string></property></item>
+          <item><property name="text"><string>FKP</string></property></item>
+          <item><property name="text"><string>FLR</string></property></item>
+          <item><property name="text"><string>FOX</string></property></item>
+          <item><property name="text"><string>FTM</string></property></item>
+          <item><property name="text"><string>FTN</string></property></item>
+          <item><property name="text"><string>FTW</string></property></item>
+          <item><property name="text"><string>GAJ</string></property></item>
+          <item><property name="text"><string>GAL</string></property></item>
+          <item><property name="text"><string>GAS</string></property></item>
+          <item><property name="text"><string>GBP</string></property></item>
+          <item><property name="text"><string>GEL</string></property></item>
+          <item><property name="text"><string>GFI</string></property></item>
+          <item><property name="text"><string>GGP</string></property></item>
+          <item><property name="text"><string>GHO</string></property></item>
+          <item><property name="text"><string>GHS</string></property></item>
+          <item><property name="text"><string>GIP</string></property></item>
+          <item><property name="text"><string>GLM</string></property></item>
+          <item><property name="text"><string>GMD</string></property></item>
+          <item><property name="text"><string>GMT</string></property></item>
+          <item><property name="text"><string>GMX</string></property></item>
+          <item><property name="text"><string>GNF</string></property></item>
+          <item><property name="text"><string>GNO</string></property></item>
+          <item><property name="text"><string>GNS</string></property></item>
+          <item><property name="text"><string>GNT</string></property></item>
+          <item><property name="text"><string>GPS</string></property></item>
+          <item><property name="text"><string>GRT</string></property></item>
+          <item><property name="text"><string>GST</string></property></item>
+          <item><property name="text"><string>GTC</string></property></item>
+          <item><property name="text"><string>GTQ</string></property></item>
+          <item><property name="text"><string>GXC</string></property></item>
+          <item><property name="text"><string>GYD</string></property></item>
+          <item><property name="text"><string>HFT</string></property></item>
+          <item><property name="text"><string>HKD</string></property></item>
+          <item><property name="text"><string>HNL</string></property></item>
+          <item><property name="text"><string>HNT</string></property></item>
+          <item><property name="text"><string>HOT</string></property></item>
+          <item><property name="text"><string>HRK</string></property></item>
+          <item><property name="text"><string>HTG</string></property></item>
+          <item><property name="text"><string>HUF</string></property></item>
+          <item><property name="text"><string>ICP</string></property></item>
+          <item><property name="text"><string>ICX</string></property></item>
+          <item><property name="text"><string>IDR</string></property></item>
+          <item><property name="text"><string>ILS</string></property></item>
+          <item><property name="text"><string>ILV</string></property></item>
+          <item><property name="text"><string>IMP</string></property></item>
+          <item><property name="text"><string>IMX</string></property></item>
+          <item><property name="text"><string>INJ</string></property></item>
+          <item><property name="text"><string>INR</string></property></item>
+          <item><property name="text"><string>INV</string></property></item>
+          <item><property name="text"><string>IQD</string></property></item>
+          <item><property name="text"><string>IRR</string></property></item>
+          <item><property name="text"><string>ISK</string></property></item>
+          <item><property name="text"><string>JEP</string></property></item>
+          <item><property name="text"><string>JET</string></property></item>
+          <item><property name="text"><string>JMD</string></property></item>
+          <item><property name="text"><string>JOD</string></property></item>
+          <item><property name="text"><string>JOE</string></property></item>
+          <item><property name="text"><string>JPY</string></property></item>
+          <item><property name="text"><string>JST</string></property></item>
+          <item><property name="text"><string>JTO</string></property></item>
+          <item><property name="text"><string>JUP</string></property></item>
+          <item><property name="text"><string>KAS</string></property></item>
+          <item><property name="text"><string>KCS</string></property></item>
+          <item><property name="text"><string>KDA</string></property></item>
+          <item><property name="text"><string>KES</string></property></item>
+          <item><property name="text"><string>KET</string></property></item>
+          <item><property name="text"><string>KGS</string></property></item>
+          <item><property name="text"><string>KHR</string></property></item>
+          <item><property name="text"><string>KMF</string></property></item>
+          <item><property name="text"><string>KNC</string></property></item>
+          <item><property name="text"><string>KPK</string></property></item>
+          <item><property name="text"><string>KPW</string></property></item>
+          <item><property name="text"><string>KRD</string></property></item>
+          <item><property name="text"><string>KRL</string></property></item>
+          <item><property name="text"><string>KRW</string></property></item>
+          <item><property name="text"><string>KSM</string></property></item>
+          <item><property name="text"><string>KUB</string></property></item>
+          <item><property name="text"><string>KWD</string></property></item>
+          <item><property name="text"><string>KYD</string></property></item>
+          <item><property name="text"><string>KZT</string></property></item>
+          <item><property name="text"><string>LAK</string></property></item>
+          <item><property name="text"><string>LBP</string></property></item>
+          <item><property name="text"><string>LCX</string></property></item>
+          <item><property name="text"><string>LDO</string></property></item>
+          <item><property name="text"><string>LEO</string></property></item>
+          <item><property name="text"><string>LIT</string></property></item>
+          <item><property name="text"><string>LKR</string></property></item>
+          <item><property name="text"><string>LPT</string></property></item>
+          <item><property name="text"><string>LQR</string></property></item>
+          <item><property name="text"><string>LRC</string></property></item>
+          <item><property name="text"><string>LRD</string></property></item>
+          <item><property name="text"><string>LSD</string></property></item>
+          <item><property name="text"><string>LSK</string></property></item>
+          <item><property name="text"><string>LSL</string></property></item>
+          <item><property name="text"><string>LTC</string></property></item>
+          <item><property name="text"><string>LTL</string></property></item>
+          <item><property name="text"><string>LVL</string></property></item>
+          <item><property name="text"><string>LYD</string></property></item>
+          <item><property name="text"><string>LYX</string></property></item>
+          <item><property name="text"><string>MAD</string></property></item>
+          <item><property name="text"><string>MAV</string></property></item>
+          <item><property name="text"><string>MDL</string></property></item>
+          <item><property name="text"><string>MDT</string></property></item>
+          <item><property name="text"><string>MEW</string></property></item>
+          <item><property name="text"><string>MGA</string></property></item>
+          <item><property name="text"><string>MIR</string></property></item>
+          <item><property name="text"><string>MKD</string></property></item>
+          <item><property name="text"><string>MKR</string></property></item>
+          <item><property name="text"><string>MLN</string></property></item>
+          <item><property name="text"><string>MMK</string></property></item>
+          <item><property name="text"><string>MMX</string></property></item>
+          <item><property name="text"><string>MNT</string></property></item>
+          <item><property name="text"><string>MOG</string></property></item>
+          <item><property name="text"><string>MOP</string></property></item>
+          <item><property name="text"><string>MPL</string></property></item>
+          <item><property name="text"><string>MRO</string></property></item>
+          <item><property name="text"><string>MRS</string></property></item>
+          <item><property name="text"><string>MRU</string></property></item>
+          <item><property name="text"><string>MTD</string></property></item>
+          <item><property name="text"><string>MTL</string></property></item>
+          <item><property name="text"><string>MUR</string></property></item>
+          <item><property name="text"><string>MVR</string></property></item>
+          <item><property name="text"><string>MWC</string></property></item>
+          <item><property name="text"><string>MWK</string></property></item>
+          <item><property name="text"><string>MXC</string></property></item>
+          <item><property name="text"><string>MXN</string></property></item>
+          <item><property name="text"><string>MYR</string></property></item>
+          <item><property name="text"><string>MZN</string></property></item>
+          <item><property name="text"><string>NAD</string></property></item>
+          <item><property name="text"><string>NCT</string></property></item>
+          <item><property name="text"><string>NEI</string></property></item>
+          <item><property name="text"><string>NEO</string></property></item>
+          <item><property name="text"><string>NFT</string></property></item>
+          <item><property name="text"><string>NGN</string></property></item>
+          <item><property name="text"><string>NIO</string></property></item>
+          <item><property name="text"><string>NKN</string></property></item>
+          <item><property name="text"><string>NMR</string></property></item>
+          <item><property name="text"><string>NMT</string></property></item>
+          <item><property name="text"><string>NOK</string></property></item>
+          <item><property name="text"><string>NOS</string></property></item>
+          <item><property name="text"><string>NOT</string></property></item>
+          <item><property name="text"><string>NPC</string></property></item>
+          <item><property name="text"><string>NPR</string></property></item>
+          <item><property name="text"><string>NXM</string></property></item>
+          <item><property name="text"><string>NZD</string></property></item>
+          <item><property name="text"><string>OAS</string></property></item>
+          <item><property name="text"><string>OGN</string></property></item>
+          <item><property name="text"><string>OHM</string></property></item>
+          <item><property name="text"><string>OKB</string></property></item>
+          <item><property name="text"><string>OKT</string></property></item>
+          <item><property name="text"><string>OMG</string></property></item>
+          <item><property name="text"><string>OMI</string></property></item>
+          <item><property name="text"><string>OMR</string></property></item>
+          <item><property name="text"><string>ONE</string></property></item>
+          <item><property name="text"><string>ONG</string></property></item>
+          <item><property name="text"><string>ONT</string></property></item>
+          <item><property name="text"><string>ORA</string></property></item>
+          <item><property name="text"><string>ORN</string></property></item>
+          <item><property name="text"><string>OXT</string></property></item>
+          <item><property name="text"><string>PAB</string></property></item>
+          <item><property name="text"><string>PAX</string></property></item>
+          <item><property name="text"><string>PCI</string></property></item>
+          <item><property name="text"><string>PEN</string></property></item>
+          <item><property name="text"><string>PGK</string></property></item>
+          <item><property name="text"><string>PHA</string></property></item>
+          <item><property name="text"><string>PHP</string></property></item>
+          <item><property name="text"><string>PIP</string></property></item>
+          <item><property name="text"><string>PKR</string></property></item>
+          <item><property name="text"><string>PLA</string></property></item>
+          <item><property name="text"><string>PLN</string></property></item>
+          <item><property name="text"><string>PLU</string></property></item>
+          <item><property name="text"><string>PNG</string></property></item>
+          <item><property name="text"><string>POL</string></property></item>
+          <item><property name="text"><string>PRO</string></property></item>
+          <item><property name="text"><string>PRQ</string></property></item>
+          <item><property name="text"><string>PYG</string></property></item>
+          <item><property name="text"><string>PYR</string></property></item>
+          <item><property name="text"><string>QAI</string></property></item>
+          <item><property name="text"><string>QAR</string></property></item>
+          <item><property name="text"><string>QNT</string></property></item>
+          <item><property name="text"><string>RAD</string></property></item>
+          <item><property name="text"><string>RAI</string></property></item>
+          <item><property name="text"><string>RAY</string></property></item>
+          <item><property name="text"><string>RBN</string></property></item>
+          <item><property name="text"><string>RED</string></property></item>
+          <item><property name="text"><string>REI</string></property></item>
+          <item><property name="text"><string>REN</string></property></item>
+          <item><property name="text"><string>REP</string></property></item>
+          <item><property name="text"><string>REQ</string></property></item>
+          <item><property name="text"><string>REZ</string></property></item>
+          <item><property name="text"><string>RGT</string></property></item>
+          <item><property name="text"><string>RIF</string></property></item>
+          <item><property name="text"><string>RLB</string></property></item>
+          <item><property name="text"><string>RLC</string></property></item>
+          <item><property name="text"><string>RLY</string></property></item>
+          <item><property name="text"><string>RON</string></property></item>
+          <item><property name="text"><string>RPL</string></property></item>
+          <item><property name="text"><string>RSD</string></property></item>
+          <item><property name="text"><string>RSR</string></property></item>
+          <item><property name="text"><string>RUB</string></property></item>
+          <item><property name="text"><string>RVN</string></property></item>
+          <item><property name="text"><string>RWF</string></property></item>
+          <item><property name="text"><string>SAR</string></property></item>
+          <item><property name="text"><string>SBD</string></property></item>
+          <item><property name="text"><string>SCR</string></property></item>
+          <item><property name="text"><string>SDG</string></property></item>
+          <item><property name="text"><string>SEI</string></property></item>
+          <item><property name="text"><string>SEK</string></property></item>
+          <item><property name="text"><string>SFP</string></property></item>
+          <item><property name="text"><string>SGB</string></property></item>
+          <item><property name="text"><string>SGD</string></property></item>
+          <item><property name="text"><string>SHP</string></property></item>
+          <item><property name="text"><string>SKK</string></property></item>
+          <item><property name="text"><string>SKL</string></property></item>
+          <item><property name="text"><string>SLE</string></property></item>
+          <item><property name="text"><string>SLL</string></property></item>
+          <item><property name="text"><string>SLP</string></property></item>
+          <item><property name="text"><string>SNT</string></property></item>
+          <item><property name="text"><string>SNX</string></property></item>
+          <item><property name="text"><string>SOL</string></property></item>
+          <item><property name="text"><string>SOS</string></property></item>
+          <item><property name="text"><string>SPA</string></property></item>
+          <item><property name="text"><string>SPK</string></property></item>
+          <item><property name="text"><string>SPX</string></property></item>
+          <item><property name="text"><string>SQD</string></property></item>
+          <item><property name="text"><string>SRD</string></property></item>
+          <item><property name="text"><string>SSP</string></property></item>
+          <item><property name="text"><string>SSV</string></property></item>
+          <item><property name="text"><string>STD</string></property></item>
+          <item><property name="text"><string>STG</string></property></item>
+          <item><property name="text"><string>STN</string></property></item>
+          <item><property name="text"><string>STX</string></property></item>
+          <item><property name="text"><string>SUI</string></property></item>
+          <item><property name="text"><string>SUN</string></property></item>
+          <item><property name="text"><string>SVC</string></property></item>
+          <item><property name="text"><string>SXP</string></property></item>
+          <item><property name="text"><string>SXT</string></property></item>
+          <item><property name="text"><string>SYN</string></property></item>
+          <item><property name="text"><string>SYP</string></property></item>
+          <item><property name="text"><string>SZL</string></property></item>
+          <item><property name="text"><string>TAO</string></property></item>
+          <item><property name="text"><string>TEL</string></property></item>
+          <item><property name="text"><string>TET</string></property></item>
+          <item><property name="text"><string>THB</string></property></item>
+          <item><property name="text"><string>TIA</string></property></item>
+          <item><property name="text"><string>TJS</string></property></item>
+          <item><property name="text"><string>TKX</string></property></item>
+          <item><property name="text"><string>TMM</string></property></item>
+          <item><property name="text"><string>TMT</string></property></item>
+          <item><property name="text"><string>TND</string></property></item>
+          <item><property name="text"><string>TON</string></property></item>
+          <item><property name="text"><string>TOP</string></property></item>
+          <item><property name="text"><string>TOR</string></property></item>
+          <item><property name="text"><string>TRB</string></property></item>
+          <item><property name="text"><string>TRU</string></property></item>
+          <item><property name="text"><string>TRX</string></property></item>
+          <item><property name="text"><string>TRY</string></property></item>
+          <item><property name="text"><string>TST</string></property></item>
+          <item><property name="text"><string>TTD</string></property></item>
+          <item><property name="text"><string>TVK</string></property></item>
+          <item><property name="text"><string>TWD</string></property></item>
+          <item><property name="text"><string>TWT</string></property></item>
+          <item><property name="text"><string>TZS</string></property></item>
+          <item><property name="text"><string>UAH</string></property></item>
+          <item><property name="text"><string>UFD</string></property></item>
+          <item><property name="text"><string>UGX</string></property></item>
+          <item><property name="text"><string>UMA</string></property></item>
+          <item><property name="text"><string>UNI</string></property></item>
+          <item><property name="text"><string>UOS</string></property></item>
+          <item><property name="text"><string>UPI</string></property></item>
+          <item><property name="text"><string>UQC</string></property></item>
+          <item><property name="text"><string>USR</string></property></item>
+          <item><property name="text"><string>UST</string></property></item>
+          <item><property name="text"><string>UYU</string></property></item>
+          <item><property name="text"><string>UZS</string></property></item>
+          <item><property name="text"><string>VEF</string></property></item>
+          <item><property name="text"><string>VES</string></property></item>
+          <item><property name="text"><string>VET</string></property></item>
+          <item><property name="text"><string>VGX</string></property></item>
+          <item><property name="text"><string>VND</string></property></item>
+          <item><property name="text"><string>VUV</string></property></item>
+          <item><property name="text"><string>VVV</string></property></item>
+          <item><property name="text"><string>WAL</string></property></item>
+          <item><property name="text"><string>WBT</string></property></item>
+          <item><property name="text"><string>WEN</string></property></item>
+          <item><property name="text"><string>WIF</string></property></item>
+          <item><property name="text"><string>WLD</string></property></item>
+          <item><property name="text"><string>WOO</string></property></item>
+          <item><property name="text"><string>WST</string></property></item>
+          <item><property name="text"><string>XAF</string></property></item>
+          <item><property name="text"><string>XAG</string></property></item>
+          <item><property name="text"><string>XAI</string></property></item>
+          <item><property name="text"><string>XAU</string></property></item>
+          <item><property name="text"><string>XCD</string></property></item>
+          <item><property name="text"><string>XCG</string></property></item>
+          <item><property name="text"><string>XCH</string></property></item>
+          <item><property name="text"><string>XCN</string></property></item>
+          <item><property name="text"><string>XDC</string></property></item>
+          <item><property name="text"><string>XDR</string></property></item>
+          <item><property name="text"><string>XEC</string></property></item>
+          <item><property name="text"><string>XEM</string></property></item>
+          <item><property name="text"><string>XLM</string></property></item>
+          <item><property name="text"><string>XMR</string></property></item>
+          <item><property name="text"><string>XOF</string></property></item>
+          <item><property name="text"><string>XPD</string></property></item>
+          <item><property name="text"><string>XPF</string></property></item>
+          <item><property name="text"><string>XPT</string></property></item>
+          <item><property name="text"><string>XRD</string></property></item>
+          <item><property name="text"><string>XRP</string></property></item>
+          <item><property name="text"><string>XTZ</string></property></item>
+          <item><property name="text"><string>XVS</string></property></item>
+          <item><property name="text"><string>XYO</string></property></item>
+          <item><property name="text"><string>YER</string></property></item>
+          <item><property name="text"><string>YFI</string></property></item>
+          <item><property name="text"><string>YGG</string></property></item>
+          <item><property name="text"><string>ZAR</string></property></item>
+          <item><property name="text"><string>ZBC</string></property></item>
+          <item><property name="text"><string>ZEC</string></property></item>
+          <item><property name="text"><string>ZEN</string></property></item>
+          <item><property name="text"><string>ZIL</string></property></item>
+          <item><property name="text"><string>ZMK</string></property></item>
+          <item><property name="text"><string>ZMW</string></property></item>
+          <item><property name="text"><string>ZRO</string></property></item>
+          <item><property name="text"><string>ZRX</string></property></item>
+          <item><property name="text"><string>ZWD</string></property></item>
+          <item><property name="text"><string>ZWL</string></property></item>
+        </widget>
+       </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="lblMonedaCompra">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Ingrese la moneda</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <spacer name="verticalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="lblTituloComprarMoneda">
+          <property name="text">
+           <string>Comprar moneda</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="lblCantidadCompra">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>10</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Cantidad</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLineEdit" name="txtPurchaseAmount"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QFrame" name="ComprarMonedaFrame_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5" rowstretch="0,1,1,0,0,0,0" columnstretch="0,2,2" rowminimumheight="0,0,0,0,0,0,0" columnminimumwidth="0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="6" column="1">
+        <spacer name="verticalSpacer_13">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="2">
+        <widget class="QPushButton" name="btnSell">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Vender</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_14">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="2">
+        <widget class="QComboBox" name="cmbSellCurrency">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>40</height>
+          </size>
+         </property>
+         <item>
+            <property name="text">
+              <string>SELECCIONAR</string>
+            </property>
+          </item>
+          <item><property name="text"><string>ARS</string></property></item>
+          <item><property name="text"><string>USD</string></property></item>
+          <item><property name="text"><string>EUR</string></property></item>
+          <item><property name="text"><string>ABT</string></property></item>
+          <item><property name="text"><string>ACH</string></property></item>
+          <item><property name="text"><string>ACS</string></property></item>
+          <item><property name="text"><string>ACT</string></property></item>
+          <item><property name="text"><string>ACX</string></property></item>
+          <item><property name="text"><string>ADA</string></property></item>
+          <item><property name="text"><string>AED</string></property></item>
+          <item><property name="text"><string>AFN</string></property></item>
+          <item><property name="text"><string>AGI</string></property></item>
+          <item><property name="text"><string>AIC</string></property></item>
+          <item><property name="text"><string>AKT</string></property></item>
+          <item><property name="text"><string>ALL</string></property></item>
+          <item><property name="text"><string>ALT</string></property></item>
+          <item><property name="text"><string>AMD</string></property></item>
+          <item><property name="text"><string>AMP</string></property></item>
+          <item><property name="text"><string>ANG</string></property></item>
+          <item><property name="text"><string>ANT</string></property></item>
+          <item><property name="text"><string>AOA</string></property></item>
+          <item><property name="text"><string>APE</string></property></item>
+          <item><property name="text"><string>APT</string></property></item>
+          <item><property name="text"><string>APU</string></property></item>
+          <item><property name="text"><string>ARB</string></property></item>
+          <item><property name="text"><string>ARC</string></property></item>
+          <item><property name="text"><string>ARK</string></property></item>
+          <item><property name="text"><string>ASM</string></property></item>
+          <item><property name="text"><string>AST</string></property></item>
+          <item><property name="text"><string>ATA</string></property></item>
+          <item><property name="text"><string>ATH</string></property></item>
+          <item><property name="text"><string>AUD</string></property></item>
+          <item><property name="text"><string>AVT</string></property></item>
+          <item><property name="text"><string>AWE</string></property></item>
+          <item><property name="text"><string>AWG</string></property></item>
+          <item><property name="text"><string>AXL</string></property></item>
+          <item><property name="text"><string>AXS</string></property></item>
+          <item><property name="text"><string>AZN</string></property></item>
+          <item><property name="text"><string>BAL</string></property></item>
+          <item><property name="text"><string>BAM</string></property></item>
+          <item><property name="text"><string>BAN</string></property></item>
+          <item><property name="text"><string>BAT</string></property></item>
+          <item><property name="text"><string>BBD</string></property></item>
+          <item><property name="text"><string>BCH</string></property></item>
+          <item><property name="text"><string>BDT</string></property></item>
+          <item><property name="text"><string>BDX</string></property></item>
+          <item><property name="text"><string>BGB</string></property></item>
+          <item><property name="text"><string>BGN</string></property></item>
+          <item><property name="text"><string>BHD</string></property></item>
+          <item><property name="text"><string>BIF</string></property></item>
+          <item><property name="text"><string>BIO</string></property></item>
+          <item><property name="text"><string>BIT</string></property></item>
+          <item><property name="text"><string>BLD</string></property></item>
+          <item><property name="text"><string>BLZ</string></property></item>
+          <item><property name="text"><string>BMD</string></property></item>
+          <item><property name="text"><string>BNB</string></property></item>
+          <item><property name="text"><string>BND</string></property></item>
+          <item><property name="text"><string>BNT</string></property></item>
+          <item><property name="text"><string>BOB</string></property></item>
+          <item><property name="text"><string>BPX</string></property></item>
+          <item><property name="text"><string>BRL</string></property></item>
+          <item><property name="text"><string>BSD</string></property></item>
+          <item><property name="text"><string>BSV</string></property></item>
+          <item><property name="text"><string>BTC</string></property></item>
+          <item><property name="text"><string>BTG</string></property></item>
+          <item><property name="text"><string>BTN</string></property></item>
+          <item><property name="text"><string>BTT</string></property></item>
+          <item><property name="text"><string>BWP</string></property></item>
+          <item><property name="text"><string>BYN</string></property></item>
+          <item><property name="text"><string>BYR</string></property></item>
+          <item><property name="text"><string>BZD</string></property></item>
+          <item><property name="text"><string>BZR</string></property></item>
+          <item><property name="text"><string>CAD</string></property></item>
+          <item><property name="text"><string>CAF</string></property></item>
+          <item><property name="text"><string>CAR</string></property></item>
+          <item><property name="text"><string>CAT</string></property></item>
+          <item><property name="text"><string>CDF</string></property></item>
+          <item><property name="text"><string>CEL</string></property></item>
+          <item><property name="text"><string>CET</string></property></item>
+          <item><property name="text"><string>CFG</string></property></item>
+          <item><property name="text"><string>CFX</string></property></item>
+          <item><property name="text"><string>CHF</string></property></item>
+          <item><property name="text"><string>CHR</string></property></item>
+          <item><property name="text"><string>CHZ</string></property></item>
+          <item><property name="text"><string>CKB</string></property></item>
+          <item><property name="text"><string>CLF</string></property></item>
+          <item><property name="text"><string>CLP</string></property></item>
+          <item><property name="text"><string>CLV</string></property></item>
+          <item><property name="text"><string>CNH</string></property></item>
+          <item><property name="text"><string>CNY</string></property></item>
+          <item><property name="text"><string>COP</string></property></item>
+          <item><property name="text"><string>COQ</string></property></item>
+          <item><property name="text"><string>COW</string></property></item>
+          <item><property name="text"><string>CRC</string></property></item>
+          <item><property name="text"><string>CRE</string></property></item>
+          <item><property name="text"><string>CRO</string></property></item>
+          <item><property name="text"><string>CRV</string></property></item>
+          <item><property name="text"><string>CTB</string></property></item>
+          <item><property name="text"><string>CTC</string></property></item>
+          <item><property name="text"><string>CTX</string></property></item>
+          <item><property name="text"><string>CUC</string></property></item>
+          <item><property name="text"><string>CUP</string></property></item>
+          <item><property name="text"><string>CVC</string></property></item>
+          <item><property name="text"><string>CVE</string></property></item>
+          <item><property name="text"><string>CVX</string></property></item>
+          <item><property name="text"><string>CZK</string></property></item>
+          <item><property name="text"><string>DAG</string></property></item>
+          <item><property name="text"><string>DAI</string></property></item>
+          <item><property name="text"><string>DAO</string></property></item>
+          <item><property name="text"><string>DAR</string></property></item>
+          <item><property name="text"><string>DCR</string></property></item>
+          <item><property name="text"><string>DDX</string></property></item>
+          <item><property name="text"><string>DGB</string></property></item>
+          <item><property name="text"><string>DHN</string></property></item>
+          <item><property name="text"><string>DIA</string></property></item>
+          <item><property name="text"><string>DJF</string></property></item>
+          <item><property name="text"><string>DKK</string></property></item>
+          <item><property name="text"><string>DNT</string></property></item>
+          <item><property name="text"><string>DOG</string></property></item>
+          <item><property name="text"><string>DOP</string></property></item>
+          <item><property name="text"><string>DOT</string></property></item>
+          <item><property name="text"><string>DYM</string></property></item>
+          <item><property name="text"><string>DYP</string></property></item>
+          <item><property name="text"><string>DZD</string></property></item>
+          <item><property name="text"><string>EDU</string></property></item>
+          <item><property name="text"><string>EEK</string></property></item>
+          <item><property name="text"><string>EGP</string></property></item>
+          <item><property name="text"><string>ELA</string></property></item>
+          <item><property name="text"><string>ELF</string></property></item>
+          <item><property name="text"><string>ELG</string></property></item>
+          <item><property name="text"><string>EML</string></property></item>
+          <item><property name="text"><string>ENA</string></property></item>
+          <item><property name="text"><string>ENJ</string></property></item>
+          <item><property name="text"><string>ENS</string></property></item>
+          <item><property name="text"><string>EOS</string></property></item>
+          <item><property name="text"><string>ERN</string></property></item>
+          <item><property name="text"><string>ETB</string></property></item>
+          <item><property name="text"><string>ETC</string></property></item>
+          <item><property name="text"><string>ETH</string></property></item>
+          <item><property name="text"><string>FAI</string></property></item>
+          <item><property name="text"><string>FET</string></property></item>
+          <item><property name="text"><string>FIL</string></property></item>
+          <item><property name="text"><string>FIS</string></property></item>
+          <item><property name="text"><string>FJD</string></property></item>
+          <item><property name="text"><string>FKP</string></property></item>
+          <item><property name="text"><string>FLR</string></property></item>
+          <item><property name="text"><string>FOX</string></property></item>
+          <item><property name="text"><string>FTM</string></property></item>
+          <item><property name="text"><string>FTN</string></property></item>
+          <item><property name="text"><string>FTW</string></property></item>
+          <item><property name="text"><string>GAJ</string></property></item>
+          <item><property name="text"><string>GAL</string></property></item>
+          <item><property name="text"><string>GAS</string></property></item>
+          <item><property name="text"><string>GBP</string></property></item>
+          <item><property name="text"><string>GEL</string></property></item>
+          <item><property name="text"><string>GFI</string></property></item>
+          <item><property name="text"><string>GGP</string></property></item>
+          <item><property name="text"><string>GHO</string></property></item>
+          <item><property name="text"><string>GHS</string></property></item>
+          <item><property name="text"><string>GIP</string></property></item>
+          <item><property name="text"><string>GLM</string></property></item>
+          <item><property name="text"><string>GMD</string></property></item>
+          <item><property name="text"><string>GMT</string></property></item>
+          <item><property name="text"><string>GMX</string></property></item>
+          <item><property name="text"><string>GNF</string></property></item>
+          <item><property name="text"><string>GNO</string></property></item>
+          <item><property name="text"><string>GNS</string></property></item>
+          <item><property name="text"><string>GNT</string></property></item>
+          <item><property name="text"><string>GPS</string></property></item>
+          <item><property name="text"><string>GRT</string></property></item>
+          <item><property name="text"><string>GST</string></property></item>
+          <item><property name="text"><string>GTC</string></property></item>
+          <item><property name="text"><string>GTQ</string></property></item>
+          <item><property name="text"><string>GXC</string></property></item>
+          <item><property name="text"><string>GYD</string></property></item>
+          <item><property name="text"><string>HFT</string></property></item>
+          <item><property name="text"><string>HKD</string></property></item>
+          <item><property name="text"><string>HNL</string></property></item>
+          <item><property name="text"><string>HNT</string></property></item>
+          <item><property name="text"><string>HOT</string></property></item>
+          <item><property name="text"><string>HRK</string></property></item>
+          <item><property name="text"><string>HTG</string></property></item>
+          <item><property name="text"><string>HUF</string></property></item>
+          <item><property name="text"><string>ICP</string></property></item>
+          <item><property name="text"><string>ICX</string></property></item>
+          <item><property name="text"><string>IDR</string></property></item>
+          <item><property name="text"><string>ILS</string></property></item>
+          <item><property name="text"><string>ILV</string></property></item>
+          <item><property name="text"><string>IMP</string></property></item>
+          <item><property name="text"><string>IMX</string></property></item>
+          <item><property name="text"><string>INJ</string></property></item>
+          <item><property name="text"><string>INR</string></property></item>
+          <item><property name="text"><string>INV</string></property></item>
+          <item><property name="text"><string>IQD</string></property></item>
+          <item><property name="text"><string>IRR</string></property></item>
+          <item><property name="text"><string>ISK</string></property></item>
+          <item><property name="text"><string>JEP</string></property></item>
+          <item><property name="text"><string>JET</string></property></item>
+          <item><property name="text"><string>JMD</string></property></item>
+          <item><property name="text"><string>JOD</string></property></item>
+          <item><property name="text"><string>JOE</string></property></item>
+          <item><property name="text"><string>JPY</string></property></item>
+          <item><property name="text"><string>JST</string></property></item>
+          <item><property name="text"><string>JTO</string></property></item>
+          <item><property name="text"><string>JUP</string></property></item>
+          <item><property name="text"><string>KAS</string></property></item>
+          <item><property name="text"><string>KCS</string></property></item>
+          <item><property name="text"><string>KDA</string></property></item>
+          <item><property name="text"><string>KES</string></property></item>
+          <item><property name="text"><string>KET</string></property></item>
+          <item><property name="text"><string>KGS</string></property></item>
+          <item><property name="text"><string>KHR</string></property></item>
+          <item><property name="text"><string>KMF</string></property></item>
+          <item><property name="text"><string>KNC</string></property></item>
+          <item><property name="text"><string>KPK</string></property></item>
+          <item><property name="text"><string>KPW</string></property></item>
+          <item><property name="text"><string>KRD</string></property></item>
+          <item><property name="text"><string>KRL</string></property></item>
+          <item><property name="text"><string>KRW</string></property></item>
+          <item><property name="text"><string>KSM</string></property></item>
+          <item><property name="text"><string>KUB</string></property></item>
+          <item><property name="text"><string>KWD</string></property></item>
+          <item><property name="text"><string>KYD</string></property></item>
+          <item><property name="text"><string>KZT</string></property></item>
+          <item><property name="text"><string>LAK</string></property></item>
+          <item><property name="text"><string>LBP</string></property></item>
+          <item><property name="text"><string>LCX</string></property></item>
+          <item><property name="text"><string>LDO</string></property></item>
+          <item><property name="text"><string>LEO</string></property></item>
+          <item><property name="text"><string>LIT</string></property></item>
+          <item><property name="text"><string>LKR</string></property></item>
+          <item><property name="text"><string>LPT</string></property></item>
+          <item><property name="text"><string>LQR</string></property></item>
+          <item><property name="text"><string>LRC</string></property></item>
+          <item><property name="text"><string>LRD</string></property></item>
+          <item><property name="text"><string>LSD</string></property></item>
+          <item><property name="text"><string>LSK</string></property></item>
+          <item><property name="text"><string>LSL</string></property></item>
+          <item><property name="text"><string>LTC</string></property></item>
+          <item><property name="text"><string>LTL</string></property></item>
+          <item><property name="text"><string>LVL</string></property></item>
+          <item><property name="text"><string>LYD</string></property></item>
+          <item><property name="text"><string>LYX</string></property></item>
+          <item><property name="text"><string>MAD</string></property></item>
+          <item><property name="text"><string>MAV</string></property></item>
+          <item><property name="text"><string>MDL</string></property></item>
+          <item><property name="text"><string>MDT</string></property></item>
+          <item><property name="text"><string>MEW</string></property></item>
+          <item><property name="text"><string>MGA</string></property></item>
+          <item><property name="text"><string>MIR</string></property></item>
+          <item><property name="text"><string>MKD</string></property></item>
+          <item><property name="text"><string>MKR</string></property></item>
+          <item><property name="text"><string>MLN</string></property></item>
+          <item><property name="text"><string>MMK</string></property></item>
+          <item><property name="text"><string>MMX</string></property></item>
+          <item><property name="text"><string>MNT</string></property></item>
+          <item><property name="text"><string>MOG</string></property></item>
+          <item><property name="text"><string>MOP</string></property></item>
+          <item><property name="text"><string>MPL</string></property></item>
+          <item><property name="text"><string>MRO</string></property></item>
+          <item><property name="text"><string>MRS</string></property></item>
+          <item><property name="text"><string>MRU</string></property></item>
+          <item><property name="text"><string>MTD</string></property></item>
+          <item><property name="text"><string>MTL</string></property></item>
+          <item><property name="text"><string>MUR</string></property></item>
+          <item><property name="text"><string>MVR</string></property></item>
+          <item><property name="text"><string>MWC</string></property></item>
+          <item><property name="text"><string>MWK</string></property></item>
+          <item><property name="text"><string>MXC</string></property></item>
+          <item><property name="text"><string>MXN</string></property></item>
+          <item><property name="text"><string>MYR</string></property></item>
+          <item><property name="text"><string>MZN</string></property></item>
+          <item><property name="text"><string>NAD</string></property></item>
+          <item><property name="text"><string>NCT</string></property></item>
+          <item><property name="text"><string>NEI</string></property></item>
+          <item><property name="text"><string>NEO</string></property></item>
+          <item><property name="text"><string>NFT</string></property></item>
+          <item><property name="text"><string>NGN</string></property></item>
+          <item><property name="text"><string>NIO</string></property></item>
+          <item><property name="text"><string>NKN</string></property></item>
+          <item><property name="text"><string>NMR</string></property></item>
+          <item><property name="text"><string>NMT</string></property></item>
+          <item><property name="text"><string>NOK</string></property></item>
+          <item><property name="text"><string>NOS</string></property></item>
+          <item><property name="text"><string>NOT</string></property></item>
+          <item><property name="text"><string>NPC</string></property></item>
+          <item><property name="text"><string>NPR</string></property></item>
+          <item><property name="text"><string>NXM</string></property></item>
+          <item><property name="text"><string>NZD</string></property></item>
+          <item><property name="text"><string>OAS</string></property></item>
+          <item><property name="text"><string>OGN</string></property></item>
+          <item><property name="text"><string>OHM</string></property></item>
+          <item><property name="text"><string>OKB</string></property></item>
+          <item><property name="text"><string>OKT</string></property></item>
+          <item><property name="text"><string>OMG</string></property></item>
+          <item><property name="text"><string>OMI</string></property></item>
+          <item><property name="text"><string>OMR</string></property></item>
+          <item><property name="text"><string>ONE</string></property></item>
+          <item><property name="text"><string>ONG</string></property></item>
+          <item><property name="text"><string>ONT</string></property></item>
+          <item><property name="text"><string>ORA</string></property></item>
+          <item><property name="text"><string>ORN</string></property></item>
+          <item><property name="text"><string>OXT</string></property></item>
+          <item><property name="text"><string>PAB</string></property></item>
+          <item><property name="text"><string>PAX</string></property></item>
+          <item><property name="text"><string>PCI</string></property></item>
+          <item><property name="text"><string>PEN</string></property></item>
+          <item><property name="text"><string>PGK</string></property></item>
+          <item><property name="text"><string>PHA</string></property></item>
+          <item><property name="text"><string>PHP</string></property></item>
+          <item><property name="text"><string>PIP</string></property></item>
+          <item><property name="text"><string>PKR</string></property></item>
+          <item><property name="text"><string>PLA</string></property></item>
+          <item><property name="text"><string>PLN</string></property></item>
+          <item><property name="text"><string>PLU</string></property></item>
+          <item><property name="text"><string>PNG</string></property></item>
+          <item><property name="text"><string>POL</string></property></item>
+          <item><property name="text"><string>PRO</string></property></item>
+          <item><property name="text"><string>PRQ</string></property></item>
+          <item><property name="text"><string>PYG</string></property></item>
+          <item><property name="text"><string>PYR</string></property></item>
+          <item><property name="text"><string>QAI</string></property></item>
+          <item><property name="text"><string>QAR</string></property></item>
+          <item><property name="text"><string>QNT</string></property></item>
+          <item><property name="text"><string>RAD</string></property></item>
+          <item><property name="text"><string>RAI</string></property></item>
+          <item><property name="text"><string>RAY</string></property></item>
+          <item><property name="text"><string>RBN</string></property></item>
+          <item><property name="text"><string>RED</string></property></item>
+          <item><property name="text"><string>REI</string></property></item>
+          <item><property name="text"><string>REN</string></property></item>
+          <item><property name="text"><string>REP</string></property></item>
+          <item><property name="text"><string>REQ</string></property></item>
+          <item><property name="text"><string>REZ</string></property></item>
+          <item><property name="text"><string>RGT</string></property></item>
+          <item><property name="text"><string>RIF</string></property></item>
+          <item><property name="text"><string>RLB</string></property></item>
+          <item><property name="text"><string>RLC</string></property></item>
+          <item><property name="text"><string>RLY</string></property></item>
+          <item><property name="text"><string>RON</string></property></item>
+          <item><property name="text"><string>RPL</string></property></item>
+          <item><property name="text"><string>RSD</string></property></item>
+          <item><property name="text"><string>RSR</string></property></item>
+          <item><property name="text"><string>RUB</string></property></item>
+          <item><property name="text"><string>RVN</string></property></item>
+          <item><property name="text"><string>RWF</string></property></item>
+          <item><property name="text"><string>SAR</string></property></item>
+          <item><property name="text"><string>SBD</string></property></item>
+          <item><property name="text"><string>SCR</string></property></item>
+          <item><property name="text"><string>SDG</string></property></item>
+          <item><property name="text"><string>SEI</string></property></item>
+          <item><property name="text"><string>SEK</string></property></item>
+          <item><property name="text"><string>SFP</string></property></item>
+          <item><property name="text"><string>SGB</string></property></item>
+          <item><property name="text"><string>SGD</string></property></item>
+          <item><property name="text"><string>SHP</string></property></item>
+          <item><property name="text"><string>SKK</string></property></item>
+          <item><property name="text"><string>SKL</string></property></item>
+          <item><property name="text"><string>SLE</string></property></item>
+          <item><property name="text"><string>SLL</string></property></item>
+          <item><property name="text"><string>SLP</string></property></item>
+          <item><property name="text"><string>SNT</string></property></item>
+          <item><property name="text"><string>SNX</string></property></item>
+          <item><property name="text"><string>SOL</string></property></item>
+          <item><property name="text"><string>SOS</string></property></item>
+          <item><property name="text"><string>SPA</string></property></item>
+          <item><property name="text"><string>SPK</string></property></item>
+          <item><property name="text"><string>SPX</string></property></item>
+          <item><property name="text"><string>SQD</string></property></item>
+          <item><property name="text"><string>SRD</string></property></item>
+          <item><property name="text"><string>SSP</string></property></item>
+          <item><property name="text"><string>SSV</string></property></item>
+          <item><property name="text"><string>STD</string></property></item>
+          <item><property name="text"><string>STG</string></property></item>
+          <item><property name="text"><string>STN</string></property></item>
+          <item><property name="text"><string>STX</string></property></item>
+          <item><property name="text"><string>SUI</string></property></item>
+          <item><property name="text"><string>SUN</string></property></item>
+          <item><property name="text"><string>SVC</string></property></item>
+          <item><property name="text"><string>SXP</string></property></item>
+          <item><property name="text"><string>SXT</string></property></item>
+          <item><property name="text"><string>SYN</string></property></item>
+          <item><property name="text"><string>SYP</string></property></item>
+          <item><property name="text"><string>SZL</string></property></item>
+          <item><property name="text"><string>TAO</string></property></item>
+          <item><property name="text"><string>TEL</string></property></item>
+          <item><property name="text"><string>TET</string></property></item>
+          <item><property name="text"><string>THB</string></property></item>
+          <item><property name="text"><string>TIA</string></property></item>
+          <item><property name="text"><string>TJS</string></property></item>
+          <item><property name="text"><string>TKX</string></property></item>
+          <item><property name="text"><string>TMM</string></property></item>
+          <item><property name="text"><string>TMT</string></property></item>
+          <item><property name="text"><string>TND</string></property></item>
+          <item><property name="text"><string>TON</string></property></item>
+          <item><property name="text"><string>TOP</string></property></item>
+          <item><property name="text"><string>TOR</string></property></item>
+          <item><property name="text"><string>TRB</string></property></item>
+          <item><property name="text"><string>TRU</string></property></item>
+          <item><property name="text"><string>TRX</string></property></item>
+          <item><property name="text"><string>TRY</string></property></item>
+          <item><property name="text"><string>TST</string></property></item>
+          <item><property name="text"><string>TTD</string></property></item>
+          <item><property name="text"><string>TVK</string></property></item>
+          <item><property name="text"><string>TWD</string></property></item>
+          <item><property name="text"><string>TWT</string></property></item>
+          <item><property name="text"><string>TZS</string></property></item>
+          <item><property name="text"><string>UAH</string></property></item>
+          <item><property name="text"><string>UFD</string></property></item>
+          <item><property name="text"><string>UGX</string></property></item>
+          <item><property name="text"><string>UMA</string></property></item>
+          <item><property name="text"><string>UNI</string></property></item>
+          <item><property name="text"><string>UOS</string></property></item>
+          <item><property name="text"><string>UPI</string></property></item>
+          <item><property name="text"><string>UQC</string></property></item>
+          <item><property name="text"><string>USR</string></property></item>
+          <item><property name="text"><string>UST</string></property></item>
+          <item><property name="text"><string>UYU</string></property></item>
+          <item><property name="text"><string>UZS</string></property></item>
+          <item><property name="text"><string>VEF</string></property></item>
+          <item><property name="text"><string>VES</string></property></item>
+          <item><property name="text"><string>VET</string></property></item>
+          <item><property name="text"><string>VGX</string></property></item>
+          <item><property name="text"><string>VND</string></property></item>
+          <item><property name="text"><string>VUV</string></property></item>
+          <item><property name="text"><string>VVV</string></property></item>
+          <item><property name="text"><string>WAL</string></property></item>
+          <item><property name="text"><string>WBT</string></property></item>
+          <item><property name="text"><string>WEN</string></property></item>
+          <item><property name="text"><string>WIF</string></property></item>
+          <item><property name="text"><string>WLD</string></property></item>
+          <item><property name="text"><string>WOO</string></property></item>
+          <item><property name="text"><string>WST</string></property></item>
+          <item><property name="text"><string>XAF</string></property></item>
+          <item><property name="text"><string>XAG</string></property></item>
+          <item><property name="text"><string>XAI</string></property></item>
+          <item><property name="text"><string>XAU</string></property></item>
+          <item><property name="text"><string>XCD</string></property></item>
+          <item><property name="text"><string>XCG</string></property></item>
+          <item><property name="text"><string>XCH</string></property></item>
+          <item><property name="text"><string>XCN</string></property></item>
+          <item><property name="text"><string>XDC</string></property></item>
+          <item><property name="text"><string>XDR</string></property></item>
+          <item><property name="text"><string>XEC</string></property></item>
+          <item><property name="text"><string>XEM</string></property></item>
+          <item><property name="text"><string>XLM</string></property></item>
+          <item><property name="text"><string>XMR</string></property></item>
+          <item><property name="text"><string>XOF</string></property></item>
+          <item><property name="text"><string>XPD</string></property></item>
+          <item><property name="text"><string>XPF</string></property></item>
+          <item><property name="text"><string>XPT</string></property></item>
+          <item><property name="text"><string>XRD</string></property></item>
+          <item><property name="text"><string>XRP</string></property></item>
+          <item><property name="text"><string>XTZ</string></property></item>
+          <item><property name="text"><string>XVS</string></property></item>
+          <item><property name="text"><string>XYO</string></property></item>
+          <item><property name="text"><string>YER</string></property></item>
+          <item><property name="text"><string>YFI</string></property></item>
+          <item><property name="text"><string>YGG</string></property></item>
+          <item><property name="text"><string>ZAR</string></property></item>
+          <item><property name="text"><string>ZBC</string></property></item>
+          <item><property name="text"><string>ZEC</string></property></item>
+          <item><property name="text"><string>ZEN</string></property></item>
+          <item><property name="text"><string>ZIL</string></property></item>
+          <item><property name="text"><string>ZMK</string></property></item>
+          <item><property name="text"><string>ZMW</string></property></item>
+          <item><property name="text"><string>ZRO</string></property></item>
+          <item><property name="text"><string>ZRX</string></property></item>
+          <item><property name="text"><string>ZWD</string></property></item>
+          <item><property name="text"><string>ZWL</string></property></item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="lblMonedaVender">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Ingrese la moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <spacer name="verticalSpacer_15">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloVenderMoneda">
+         <property name="text">
+          <string>Vender moneda</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="lblCantidadVender">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="txtSellAmount"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <widget class="QFrame" name="ComprarMonedaFrame_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>700</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>700</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* ==== Título ==== */
+QLabel#lblTituloComprarMoneda {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border: none;
+  padding: 4px 0 8px 0;
+}
+
+/* ==== Label de campo ==== */
+QLabel#lblCantidadCompra,QLabel#lblMonedaCompra  {
+  color: #334155;
+  font-weight: 600;
+}
+
+/* ==== ComboBox (dropdown) ==== */
+QComboBox#cmbCurrencyCompra {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 36px 8px 10px;  
+  min-height: 34px;
+}
+QComboBox#cmbCurrencyCompra:focus {
+  border: 2px solid #22c55e;     /* acento verde */
+  background: #ffffff;
+}
+QComboBox#cmbCurrencyCompra::drop-down {
+  border: 0; width: 24px;
+}
+QComboBox#cmbCurrencyCompra QAbstractItemView {
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  selection-background-color: #22c55e;
+  selection-color: #ffffff;
+  outline: 0;
+}
+
+/* ==== Botón principal ==== */
+QPushButton#btnComprarMoneda {
+  background: #16a34a;
+  color: #ffffff;
+  border: 1px solid #15803d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+QPushButton#btnComprarMoneda:hover   { background: #17b455; }
+QPushButton#btnComprarMoneda:pressed { background: #12803e; }
+QPushButton#btnComprarMoneda:disabled{
+  background: #e5f7ed; color: #065f46; border-color: #bfead3;
+}
+
+/* ===== Campos ===== */
+QLineEdit#txtCantidadCompra {
+  background: #f8fafc;
+  color: #111827;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+QLineEdit#txtCantidadCompra:focus{
+  border: 2px solid #22c55e;
+  background: #ffffff;
+}
+QLineEdit#txtCantidadCompra::placeholder, QLineEdit#txtPassword::placeholder {
+  color: #94a3b8;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6" rowstretch="0,0,0,0,0,0" columnstretch="0,0,0,0">
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <property name="spacing">
+        <number>12</number>
+       </property>
+       <item row="2" column="2">
+        <widget class="QLabel" name="lblCantidadDeposito">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <spacer name="verticalSpacer_16">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="3">
+        <widget class="QPushButton" name="btnDeposit">
+         <property name="font">
+          <font>
+           <family>Segoe UI Black</family>
+           <pointsize>10</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Depositar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lblTituloDepositarMoneda">
+         <property name="text">
+          <string>Depositar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="txtAmount"/>
+       </item>
+       <item row="3" column="3">
+        <spacer name="verticalSpacer_17">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <spacer name="verticalSpacer_18">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>150</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnCerrar">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>20</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Cerrar Sesión</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCreateAccountM">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Crear cuenta</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPurchaseM">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Comprar moneda</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnSellM">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Vender moneda</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDepositM">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>90</y>
+      <width>130</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Depositar ARS</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblWelcomeUser">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>254</width>
+      <height>47</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
